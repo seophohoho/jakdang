@@ -136,4 +136,5 @@ docs/                        SOURCES / DEPLOY / OPERATIONS
   - `0 0 * * *`(UTC)는 한국 시간 오전 9시대를 뜻할 뿐, 9시 정각을 약속하지 않습니다.
 - 함수 `maxDuration`은 240초입니다. 내부 작업 예산은 210초입니다.
 - 하루 1회 실행이라 재시도 예약이 1분 뒤여도 자동 처리는 다음 날이 될 수 있습니다. 빠른 복구는 로컬 `notifications:flush`로 합니다.
-- 실제 배포 계정의 현재 한도: **배포 후 [docs/DEPLOY.md](docs/DEPLOY.md)에 기록 예정**
+- 실제 배포 계정의 현재 한도(2026-10-22 확인): Vercel Hobby, 함수 기본 제한 300초(이 프로젝트는 240초로 지정), Fluid compute 켜짐, 지역 iad1. Neon 무료 플랜, `aws-us-east-1`. 자세한 내용은 [docs/DEPLOY.md](docs/DEPLOY.md)에 있습니다.
+- 현재 운영 알림 채널은 Mattermost 하나입니다. Discord는 보류 중입니다.
