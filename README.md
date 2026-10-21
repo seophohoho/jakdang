@@ -83,7 +83,7 @@ Webhook 주소를 비워 두면 알림 행(notification)을 만들지 않습니�
 
 | 이름 | 기본값 | 설명 |
 | --- | --- | --- |
-| `DATABASE_URL` | 없음 | Postgres 주소. 운영은 Neon pooled URL(`sslmode=require`) |
+| `DATABASE_URL` | 없음 | Postgres 주소. 운영은 Neon pooled URL(`sslmode=verify-full`) |
 | `CRON_SECRET` | 없음 | 32자 이상 난수(`openssl rand -hex 32`). 없거나 짧으면 API가 모두 401 |
 | `NOTIFICATIONS_ENABLED` | `false` | `true`/`false` 문자열만 허용. preview·development 배포에서는 항상 꺼짐 |
 | `DISCORD_WEBHOOK_URL` | 없음 | `discord-main` 채널. `https://discord.com/api/webhooks/...` |

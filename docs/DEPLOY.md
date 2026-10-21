@@ -1,13 +1,15 @@
 # 배포 기록
 
-상태: **아직 배포하지 않음** (2026-10-22 기준). 아래 "기록" 칸은 실제 배포 때 채웁니다. 비밀 값은 적지 않습니다.
+상태: **배포 진행 중** (2026-10-22 기준). 저장소·Vercel 프로젝트·운영 DB를 만들었고 첫 배포 전이다. 비밀 값은 적지 않는다.
 
 ## 기록
 
 | 항목 | 값 |
 | --- | --- |
 | 배포 URL | 미기록 |
-| Vercel 프로젝트 / 플랜 | 미기록 |
+| Git 저장소 | GitHub `seophohoho/jakdang` (비공개, 2026-10-22 생성) |
+| Vercel 프로젝트 / 플랜 | `seophohoho/jakdang` / Hobby. Git 연결됨. Framework Other, Node.js 24.x, 함수 지역 기본값(iad1) |
+| Neon 프로젝트 | `jakdang` (`twilight-fog-60399452`), `aws-us-east-1`, Postgres 17, 기본 브랜치 `main`, DB `jakdang`. 무료 플랜 |
 | Node 버전 | 24.x (`package.json` engines, `.nvmrc`) — 플랫폼 빌드 로그 확인 미기록 |
 | Cron 일정 | `0 0 * * *` UTC (한국 시간 오전 9시대, 정각 보장 없음) |
 | 함수 시간 제한 | `api/cron.ts` 240초, `api/health.ts` 30초, 내부 예산 `RUN_BUDGET_MS=210000` |
@@ -15,7 +17,7 @@
 | 비밀 변수 이름(Production) | `DATABASE_URL`, `CRON_SECRET`, `DISCORD_WEBHOOK_URL`, `MATTERMOST_WEBHOOK_URL` |
 | 일반 변수(Production) | `NOTIFICATIONS_ENABLED`, `MAX_NOTIFICATIONS_PER_RUN`, `RUN_BUDGET_MS`, `LOG_LEVEL` |
 | Preview 변수 | 운영 비밀 공유 안 함. 알림은 코드에서 강제로 끔(`VERCEL_ENV=preview`) |
-| 마이그레이션 버전 | 미적용 (적용 대상: `001_init`) |
+| 마이그레이션 버전 | `001_init` 적용 (2026-10-22, 로컬에서 1회). 재실행 시 "이미 적용됨" 확인 |
 | 비인증 401 확인 | 미확인 |
 | bootstrap 결과 | 미실행 |
 | 인증된 cron 수동 실행 | 미실행 |
@@ -41,8 +43,10 @@
    - 비공개 Git 저장소를 준비한다.
    - `git ls-files`에 `.env*`(`.env.example` 제외)와 `.vercel`이 없는지 확인한다.
 3. **Neon 운영 DB**
-   - 프로젝트를 만들고 개발·운영 브랜치를 분리한다.
-   - 운영 pooled 연결 주소(`...-pooler...`, `sslmode=require`)를 받는다.
+   - 프로젝트를 만든다. 기본 브랜치를 운영용으로 쓴다. 개발 DB는 로컬 Docker(`jakdang_dev`)라 Neon 개발 브랜치는 만들지 않는다.
+   - 운영 pooled 연결 주소(`...-pooler...`)를 받는다.
+   - `sslmode`는 `verify-full`로 바꾼다. Neon이 주는 `sslmode=require`는 pg 8에서 경고를 낸다. pg 9부터는 인증서를 검사하지 않는 약한 모드로 바뀐다.
+     - `neonctl`을 쓰면 주소를 화면에 출력하지 않고 파일에 바로 쓸 수 있다: `neonctl connection-string <브랜치> --project-id <id> --pooled`의 출력을 스크립트로 받아 `.env.production.local`에 쓴다.
    - 운영 값은 `.env.production.local`에 둔다(`.env*`라 ignore됨). 셸 이력·명령 인자에 비밀을 넣지 않는다.
    - 마이그레이션은 로컬에서 한 번만 적용한다. 빌드나 요청마다 실행하지 않는다.
      ```bash
