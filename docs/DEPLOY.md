@@ -34,6 +34,7 @@
 - 나중에 `DISCORD_WEBHOOK_URL`을 넣으면 그 뒤에 발견한 공고만 Discord로 간다. 그전 공고는 Discord로 보내지 않는다.
 - `MAX_NOTIFICATIONS_PER_RUN=10`은 알림 행 기준이다. 채널이 1개라 지금은 실행당 공고 10건이다.
 - Mattermost 채널을 바꿀 때는 Webhook 편집에서 채널만 바꾼다. 주소가 그대로라 환경 변수는 건드리지 않는다. Webhook을 새로 만들면 주소가 바뀌므로 `.env.production.local`과 Vercel 값을 바꾸고 재배포한다.
+- 지금은 temp 채널에서 확인 중이다. 실제 채널로 옮길 때는 운영 DB 데이터를 초기화하고 bootstrap을 다시 한다(계획서 16장, 2026-10-22 결정).
 
 ## 로컬에서 확인한 것 (2026-10-22)
 
