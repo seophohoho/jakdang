@@ -18,7 +18,7 @@ export class UsageError extends Error {
   }
 }
 
-export const USAGE = `사용법:
+export const USAGE = `사용법 (모든 명령에 --env-path <파일>을 붙이면 .env 대신 그 파일만 읽습니다):
   npm run sync -- [--dry-run] [--bootstrap] [--source <id>]
   npm run sources:check -- [--source <id>]
   npm run notifications:flush
@@ -85,14 +85,42 @@ export interface CliContext {
 
 export type CommandHandler = (command: CliCommand, context: CliContext) => Promise<number>;
 
-function loadDotEnv(path = '.env') {
-  if (existsSync(path)) process.loadEnvFile(path);
+export function extractEnvFile(argv: string[]): { envFile: string | null; rest: string[] } {
+  const rest: string[] = [];
+  let envFile: string | null = null;
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index] as string;
+    if (arg === '--env-path') {
+      const value = argv[index + 1];
+      if (value === undefined || value.startsWith('--')) throw new UsageError('--env-path 다음에 파일 경로가 필요합니다');
+      envFile = value;
+      index += 1;
+    } else if (arg.startsWith('--env-path=')) {
+      envFile = arg.slice('--env-path='.length);
+    } else {
+      rest.push(arg);
+    }
+  }
+  return { envFile, rest };
+}
+
+export function loadEnvironment(envFile: string | null): void {
+  if (envFile !== null) {
+    if (!existsSync(envFile)) throw new UsageError(`환경 변수 파일이 없습니다: ${envFile}`);
+    process.loadEnvFile(envFile);
+    return;
+  }
+  if (existsSync('.env')) process.loadEnvFile('.env');
 }
 
 export async function main(argv: string[], handler?: CommandHandler): Promise<number> {
   let command: CliCommand;
+  let envFile: string | null;
   try {
-    command = parseCliArgs(argv);
+    const extracted = extractEnvFile(argv);
+    envFile = extracted.envFile;
+    command = parseCliArgs(extracted.rest);
+    loadEnvironment(envFile);
   } catch (error) {
     if (error instanceof UsageError) {
       process.stderr.write(`${error.message}\n\n${USAGE}\n`);
@@ -100,7 +128,6 @@ export async function main(argv: string[], handler?: CommandHandler): Promise<nu
     }
     throw error;
   }
-  loadDotEnv();
   let config: AppConfig;
   try {
     config = loadConfig(process.env);

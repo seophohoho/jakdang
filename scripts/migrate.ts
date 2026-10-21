@@ -1,12 +1,22 @@
 import { existsSync } from 'node:fs';
+import { parseArgs } from 'node:util';
 import { ConfigError, loadConfig, requireDatabaseUrl, secretValues } from '../src/config.js';
 import { createPool } from '../src/db/client.js';
 import { loadMigrationFiles, runMigrations } from '../src/db/migrations.js';
 import { errorMessage, redact } from '../src/log.js';
 
-if (existsSync('.env')) process.loadEnvFile('.env');
-
 async function main(): Promise<number> {
+  const { values } = parseArgs({ options: { 'env-path': { type: 'string' } }, strict: true });
+  const envFile = values['env-path'];
+  if (envFile !== undefined) {
+    if (!existsSync(envFile)) {
+      process.stderr.write(`환경 변수 파일이 없습니다: ${envFile}\n`);
+      return 1;
+    }
+    process.loadEnvFile(envFile);
+  } else if (existsSync('.env')) {
+    process.loadEnvFile('.env');
+  }
   let config;
   try {
     config = loadConfig(process.env);

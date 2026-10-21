@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseCliArgs, UsageError } from '../../src/cli.js';
+import { extractEnvFile, parseCliArgs, UsageError } from '../../src/cli.js';
 
 describe('parseCliArgs', () => {
   it('sync 옵션을 해석한다', () => {
@@ -39,5 +39,24 @@ describe('parseCliArgs', () => {
     expect(() => parseCliArgs(['deploy'])).toThrow(UsageError);
     expect(() => parseCliArgs(['sync', '--force'])).toThrow(UsageError);
     expect(() => parseCliArgs(['notifications:flush', '--all'])).toThrow(UsageError);
+  });
+});
+
+describe('extractEnvFile', () => {
+  it('--env-path을 어디에 두어도 빼내고 나머지 인자는 유지한다', () => {
+    expect(extractEnvFile(['sync', '--bootstrap', '--env-path', '.env.production.local'])).toEqual({
+      envFile: '.env.production.local',
+      rest: ['sync', '--bootstrap'],
+    });
+    expect(extractEnvFile(['--env-path=prod.env', 'notifications:flush'])).toEqual({
+      envFile: 'prod.env',
+      rest: ['notifications:flush'],
+    });
+    expect(extractEnvFile(['sync'])).toEqual({ envFile: null, rest: ['sync'] });
+  });
+
+  it('경로가 빠지면 사용법 오류다', () => {
+    expect(() => extractEnvFile(['sync', '--env-path'])).toThrow(UsageError);
+    expect(() => extractEnvFile(['sync', '--env-path', '--dry-run'])).toThrow(UsageError);
   });
 });

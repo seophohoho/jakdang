@@ -19,7 +19,8 @@
     "sync": "tsx src/cli.ts sync",
     "notifications:flush": "tsx src/cli.ts notifications:flush",
     "notifications:resolve": "tsx src/cli.ts notifications:resolve",
-    "notifications:test": "tsx src/cli.ts notifications:test"
+    "notifications:test": "tsx src/cli.ts notifications:test",
+    "api:call": "tsx scripts/call-api.ts"
   },
   "dependencies": {
     "cheerio": "^1.2.0",
