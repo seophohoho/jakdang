@@ -1,6 +1,6 @@
 import type { Fetcher } from '../collectors/fetch.js';
 import type { SourceConfig } from '../collectors/types.js';
-import type { AppConfig, DestinationId } from '../config.js';
+import { secretValues, type AppConfig, type DestinationId } from '../config.js';
 import { withReadOnlyTransaction, type Pool } from '../db/client.js';
 import {
   finishJobRun,
@@ -18,8 +18,18 @@ import {
 } from '../db/repository.js';
 import { errorMessage, type Logger } from '../log.js';
 import { buildPayload } from '../notifications/format.js';
+import type { Notifier } from '../notifications/webhook.js';
 import { sourceFingerprint } from '../sources.js';
 import { collectSource, type CollectErrorKind, type CollectResult } from './collect.js';
+import {
+  backlogStatus,
+  deliverDue,
+  emptyDeliverySummary,
+  mergeDeliverySummaries,
+  recoverExpiredClaims,
+  type BacklogStatus,
+  type DeliverySummary,
+} from './deliver.js';
 import { prepareItems, type CandidateItem } from './detect.js';
 import { Lease, LockLostError } from './lease.js';
 
@@ -43,7 +53,9 @@ export interface RunSyncDeps {
   fetcher: Fetcher;
   config: AppConfig;
   logger: Logger;
+  notifiers?: Map<DestinationId, Notifier>;
   now?: () => number;
+  sleep?: (ms: number) => Promise<void>;
 }
 
 export type SourceRunStatus =
@@ -92,6 +104,9 @@ export interface RunSyncResult {
   destinations: DestinationId[];
   dbCompared: boolean;
   errorSummary: string | null;
+  recoveredClaims: number;
+  delivery: DeliverySummary;
+  backlog: BacklogStatus | null;
 }
 
 function emptyReport(sourceId: string, status: SourceRunStatus): SourceRunReport {
@@ -187,10 +202,15 @@ function errorSummaryOf(sources: SourceRunReport[]): string | null {
   return parts.length > 0 ? parts.join(' | ') : null;
 }
 
-export function countsForJobRun(result: Pick<RunSyncResult, 'sources' | 'totals' | 'skippedUninitialized'>) {
+export function countsForJobRun(
+  result: Pick<RunSyncResult, 'sources' | 'totals' | 'skippedUninitialized' | 'recoveredClaims' | 'delivery' | 'backlog'>,
+) {
   return {
     totals: result.totals,
     skippedUninitialized: result.skippedUninitialized,
+    recoveredClaims: result.recoveredClaims,
+    delivery: result.delivery,
+    backlog: result.backlog,
     sources: Object.fromEntries(
       result.sources.map((report) => [
         report.sourceId,
@@ -298,6 +318,9 @@ async function runDry(
     destinations,
     dbCompared: deps.pool !== null,
     errorSummary: errorSummaryOf(reports),
+    recoveredClaims: 0,
+    delivery: emptyDeliverySummary('disabled'),
+    backlog: null,
   };
 }
 
@@ -327,6 +350,9 @@ export async function runSync(deps: RunSyncDeps, options: RunSyncOptions): Promi
       destinations,
       dbCompared: true,
       errorSummary: '다른 실행이 잠금을 보유 중',
+      recoveredClaims: 0,
+      delivery: emptyDeliverySummary('disabled'),
+      backlog: null,
     };
   }
 
@@ -334,7 +360,26 @@ export async function runSync(deps: RunSyncDeps, options: RunSyncOptions): Promi
   const reports: SourceRunReport[] = [];
   const skippedUninitialized: string[] = [];
   let fatal: string | null = null;
+  let recoveredClaims = 0;
+  let delivery = emptyDeliverySummary(bootstrap ? 'disabled' : 'empty');
+  let backlog: BacklogStatus | null = null;
+  const maxPerRun = deps.config.maxNotificationsPerRun;
+  const deliver = (limit: number) =>
+    deliverDue({
+      pool,
+      notifiers: deps.notifiers ?? new Map(),
+      enabled: deps.config.notificationsEnabled,
+      limit,
+      remainingMs,
+      lease,
+      logger: deps.logger,
+      secrets: secretValues(deps.config),
+      sleep: deps.sleep,
+    });
   try {
+    recoveredClaims = await recoverExpiredClaims(pool);
+    if (recoveredClaims > 0) deps.logger.warn('전송 중 끊긴 알림을 uncertain으로 돌렸습니다', { count: recoveredClaims });
+    if (!bootstrap) delivery = await deliver(Math.ceil(maxPerRun / 2));
     if (destinations.length === 0 && !bootstrap) {
       deps.logger.warn('설정된 알림 채널이 없어 새 항목의 알림을 만들지 않습니다');
     }
@@ -381,6 +426,13 @@ export async function runSync(deps: RunSyncDeps, options: RunSyncOptions): Promi
       }
     });
     reports.push(...results);
+    if (!bootstrap) {
+      delivery = mergeDeliverySummaries(delivery, await deliver(maxPerRun - delivery.attempted));
+      backlog = await backlogStatus(pool, maxPerRun);
+      if (backlog.warning) {
+        deps.logger.warn('미발송 알림이 쌓이고 있습니다', { pending: backlog.pending, maxPerRun });
+      }
+    }
   } catch (error) {
     fatal = error instanceof LockLostError ? error.message : `실행 중 오류: ${errorMessage(error)}`;
     deps.logger.error('동기화 실행 실패', { runId, error: fatal });
@@ -400,13 +452,16 @@ export async function runSync(deps: RunSyncDeps, options: RunSyncOptions): Promi
     destinations,
     dbCompared: true,
     errorSummary,
+    recoveredClaims,
+    delivery,
+    backlog,
   };
   try {
     await finishJobRun(pool, runId, status, countsForJobRun(result), errorSummary);
   } finally {
     await lease.release().catch(() => false);
   }
-  deps.logger.info('동기화 실행 완료', { runId, status, totals });
+  deps.logger.info('동기화 실행 완료', { runId, status, totals, delivery, backlog });
   return result;
 }
 

@@ -98,3 +98,12 @@ export function buildMattermostPayload(message: NewItemMessage): MattermostPaylo
 export function buildPayload(destinationId: DestinationId, message: NewItemMessage): WebhookPayload {
   return destinationId === 'discord-main' ? buildDiscordPayload(message) : buildMattermostPayload(message);
 }
+
+export function buildTestPayload(destinationId: DestinationId, sentAt: Date): WebhookPayload {
+  const lines = [
+    '[테스트] jakdang 알림 연결 확인',
+    '이 메시지는 notifications:test 명령으로 보낸 합성 메시지입니다. DB에는 기록하지 않습니다.',
+    `보낸 시각: ${formatKst(sentAt)}`,
+  ].join('\n');
+  return destinationId === 'discord-main' ? { content: lines, allowed_mentions: { parse: [] } } : { text: lines };
+}

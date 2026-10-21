@@ -1,4 +1,5 @@
 import type { CommandHandler } from '../cli.js';
+import { runFlush, runResolve, runTestMessage } from './notifications.js';
 import { runSourcesCheck } from './sources-check.js';
 import { runSyncCommand } from './sync.js';
 
@@ -8,7 +9,11 @@ export const runCommand: CommandHandler = async (command, context) => {
       return runSourcesCheck(command.sourceIds, context.print);
     case 'sync':
       return runSyncCommand(command, context);
-    default:
-      throw new Error(`${command.name} 명령은 아직 구현되지 않았습니다`);
+    case 'notifications:flush':
+      return runFlush(context);
+    case 'notifications:resolve':
+      return runResolve(command, context);
+    case 'notifications:test':
+      return runTestMessage(command, context);
   }
 };

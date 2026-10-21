@@ -249,6 +249,7 @@ export interface ClaimOptions {
   destinationIds: string[];
   claimToken: string;
   claimMs: number;
+  includeScheduled?: boolean;
 }
 
 export async function claimNextDue(q: Queryable, options: ClaimOptions): Promise<NotificationRow | null> {
@@ -261,12 +262,12 @@ export async function claimNextDue(q: Queryable, options: ClaimOptions): Promise
         SELECT id FROM notifications
          WHERE status = 'pending'
            AND destination_id = ANY($1::text[])
-           AND (next_attempt_at IS NULL OR next_attempt_at <= now())
+           AND ($4::boolean OR next_attempt_at IS NULL OR next_attempt_at <= now())
          ORDER BY created_at, id
          LIMIT 1
          FOR UPDATE SKIP LOCKED)
       RETURNING ${NOTIFICATION_COLUMNS}`,
-    [options.destinationIds, options.claimToken, options.claimMs],
+    [options.destinationIds, options.claimToken, options.claimMs, options.includeScheduled ?? false],
   );
   return rows[0] ? toNotification(rows[0]) : null;
 }
@@ -283,6 +284,15 @@ export async function completeSent(
             claim_token = NULL, claimed_until = NULL, next_attempt_at = NULL, updated_at = clock_timestamp()
       WHERE id = $1 AND claim_token = $2 AND status = 'sending'`,
     [id, claimToken, remoteMessageId],
+  );
+  return (rowCount ?? 0) === 1;
+}
+
+export async function bumpAttempt(q: Queryable, id: string, claimToken: string): Promise<boolean> {
+  const { rowCount } = await q.query(
+    `UPDATE notifications SET attempts = attempts + 1, updated_at = clock_timestamp()
+      WHERE id = $1 AND claim_token = $2 AND status = 'sending'`,
+    [id, claimToken],
   );
   return (rowCount ?? 0) === 1;
 }

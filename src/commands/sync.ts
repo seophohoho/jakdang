@@ -2,6 +2,7 @@ import type { CliCommand, CliContext } from '../cli.js';
 import { createFetcher } from '../collectors/fetch.js';
 import { requireDatabaseUrl } from '../config.js';
 import { createPool } from '../db/client.js';
+import { createNotifiers } from '../notifications/index.js';
 import { runSync, type RunSyncResult, type SourceRunReport } from '../core/run-sync.js';
 import { SOURCES, selectSources } from '../sources.js';
 
@@ -42,6 +43,21 @@ export function formatSyncResult(result: RunSyncResult, verbose: boolean): strin
       `  → npm run sync -- --bootstrap ${result.skippedUninitialized.map((id) => `--source ${id}`).join(' ')}`,
     );
   }
+  if (!result.dryRun && !result.bootstrap && result.runId) {
+    const delivery = result.delivery;
+    lines.push(
+      delivery.stoppedBy === 'disabled'
+        ? '발송: NOTIFICATIONS_ENABLED=false(또는 preview)라 보내지 않았습니다. 알림은 pending으로 남습니다.'
+        : `발송: 시도 ${delivery.attempted}, 성공 ${delivery.sent}, 재시도 예약 ${delivery.retryScheduled}, 실패 ${delivery.failed}, 불확실 ${delivery.uncertain} (멈춘 이유: ${delivery.stoppedBy})`,
+    );
+    if (result.recoveredClaims > 0) lines.push(`전송 중 끊긴 알림 ${result.recoveredClaims}건을 uncertain으로 복구했습니다.`);
+    if (result.backlog) {
+      lines.push(
+        `남은 알림: pending ${result.backlog.pending}, uncertain ${result.backlog.uncertain}, failed ${result.backlog.failed}` +
+          (result.backlog.warning ? ' — backlog 경고: 실행당 한도보다 많이 쌓였습니다' : ''),
+      );
+    }
+  }
   if (result.errorSummary) lines.push(`오류 요약: ${result.errorSummary}`);
   return lines;
 }
@@ -55,7 +71,13 @@ export async function runSyncCommand(
   const pool = databaseUrl ? createPool(databaseUrl, { applicationName: 'jakdang-cli' }) : null;
   try {
     const result = await runSync(
-      { pool, fetcher: createFetcher(), config: context.config, logger: context.logger },
+      {
+        pool,
+        fetcher: createFetcher(),
+        config: context.config,
+        logger: context.logger,
+        notifiers: createNotifiers(context.config),
+      },
       { mode: 'cli', dryRun: command.dryRun, bootstrap: command.bootstrap, sources },
     );
     for (const line of formatSyncResult(result, command.dryRun)) context.print(line);
