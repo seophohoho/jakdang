@@ -85,15 +85,11 @@ export interface CliContext {
 
 export type CommandHandler = (command: CliCommand, context: CliContext) => Promise<number>;
 
-const notImplemented: CommandHandler = async (command) => {
-  throw new Error(`${command.name} 명령은 아직 구현되지 않았습니다`);
-};
-
 function loadDotEnv(path = '.env') {
   if (existsSync(path)) process.loadEnvFile(path);
 }
 
-export async function main(argv: string[], handler: CommandHandler = notImplemented): Promise<number> {
+export async function main(argv: string[], handler?: CommandHandler): Promise<number> {
   let command: CliCommand;
   try {
     command = parseCliArgs(argv);
@@ -119,7 +115,8 @@ export async function main(argv: string[], handler: CommandHandler = notImplemen
   const logger = createLogger({ level: config.logLevel, secrets });
   const print = (line: string) => process.stdout.write(`${redact(line, secrets)}\n`);
   try {
-    return await handler(command, { config, logger, print });
+    const run = handler ?? (await import('./commands/index.js')).runCommand;
+    return await run(command, { config, logger, print });
   } catch (error) {
     logger.error('명령 실행 실패', { command: command.name, error: errorMessage(error) });
     return 1;

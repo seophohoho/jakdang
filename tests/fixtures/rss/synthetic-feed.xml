@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 합성 RSS fixture: 실제 사이트 피드가 아님 -->
+<rss version="2.0">
+  <channel>
+    <title>합성 개발자 행사 피드</title>
+    <link>https://feed.example.com/events</link>
+    <description>테스트용</description>
+    <item>
+      <title><![CDATA[  2026 합성 해커톤   본선  ]]></title>
+      <link>https://feed.example.com/events/101?utm_source=rss&amp;utm_medium=feed</link>
+      <guid isPermaLink="false">evt-101</guid>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>합성 밋업 @channel 공지</title>
+      <link>https://feed.example.com/events/102</link>
+      <guid>https://feed.example.com/events/102</guid>
+    </item>
+    <item>
+      <title></title>
+      <link>https://feed.example.com/events/103</link>
+      <guid isPermaLink="false">evt-103</guid>
+    </item>
+    <item>
+      <title>외부 호스트로 가는 항목</title>
+      <link>https://evil.example.net/phish</link>
+      <guid isPermaLink="false">evt-104</guid>
+    </item>
+  </channel>
+</rss>
