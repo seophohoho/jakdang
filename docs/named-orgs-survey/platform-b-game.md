@@ -1,0 +1,234 @@
+## NHN
+- 조사 범위: NHN(본사), NHN Cloud. NHN Dooray는 검색 1회만 했다(결과 없음). NHN Commerce·NHN KCP 등 다른 계열사는 보지 않았다(세션 검색 한도 소진).
+- 공지 위치:
+  - 기술 블로그 RSS `https://meetup.nhncloud.com/rss` — 읽기: 공식 API·RSS / robots: 허용(`Disallow: /admin/`만) / 10건(2026-07-13~10-20) 중 행사 공지 0건. 화면 `https://meetup.nhncloud.com/`은 AngularJS 틀(`{{post.postPerLang.title}}`)만 있어 CSR이다
+  - 이벤트 목록 페이지 `https://www.nhncloud.com/kr/intro/news`(새소식) — 읽기: CSR / robots: 허용 / HTML과 `__NUXT__`에 목록이 없다. NHN Cloud 첫 화면에 행사 메뉴가 없다
+  - 공식 행사 사이트 `https://nan2026.nhn.com` — 읽기: 불가 / robots: 미확인 / DNS가 없다(2026-10-23). 공고가 공식 홈페이지로 적은 주소다(검색 근거)
+  - 공식 행사 사이트 NHN FORWARD — EVENT_SITES 기준 `forward.nhn.com`이 NHN Cloud 유튜브 채널로 연결된다
+  - 이벤트 목록 페이지 `https://www.nhn.com/pr?tab=pressRelease`(보도자료) — 읽기: 미확인(요청 안 함) / robots: 허용(전체 허용) / 첫 화면은 Next.js(`__NEXT_DATA__`)다. 메뉴 "IR 행사"는 투자자 행사다
+  - 모음 사이트 이벤터스 NHN Cloud 채널 `https://event-us.kr/nhncloudon/event/{id}`, `https://event-us.kr/nhncloud/event/{id}` — 읽기: EVENT_SITES 기준 숨은 API(POST) / robots: 허용(채널 경로 금지 없음) / 채널 루트 `https://event-us.kr/nhncloudon`은 404 페이지로 302된다. 검색에 보인 최근 행사는 2025-05-13 웨비나다(기간 밖, 검색 근거)
+  - 모음 사이트 링커리어 `https://linkareer.com/activity/334248` — NAN 2026 공고(검색 근거). 요청 안 함
+  - SNS: YouTube `https://www.youtube.com/c/NHNCloud`, Facebook `https://www.facebook.com/nhncloud/`, LinkedIn `https://www.linkedin.com/company/nhncloud/`, 네이버 블로그 `https://blog.naver.com/nhncloud_official`(NHN Cloud 첫 화면 링크)
+- 약관: 미확인. NHN Cloud 첫 화면 HTML과 기술 블로그에서 이용약관 링크를 찾지 못했다.
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 1건, 후원 발견 0건
+  - NAN 2026(Next AI Network 2026, 게임×AI 해커톤) — 접수 2026-07-09~08-10, 본선 2026-09-04~06(48시간) — 해커톤(채용 연계) — 국내(판교 NHN 플레이뮤지엄) — 주최(후원 문화체육관광부·한국콘텐츠진흥원) — 모음 사이트: 링커리어(`linkareer.com/activity/334248`), 더팀스(`theteams.kr/activities/page/334248`) — 근거: 검색 근거(스포츠경향 2026-07-13 모집 기사, 디지털투데이 본선 결과 기사)
+- 예정(2026-11 이후): 찾지 못했다.
+- 메모:
+  - NHN FORWARD: 2025-11~2026-10 개최 근거가 없다(검색 근거). 검색에는 2019·2021 회차만 나왔다
+  - NHN Cloud make IT: 2022-06-28 서울 회차 이후 근거가 없다(검색 근거)
+  - NHN Cloud는 남의 행사에 전시로 참가했다: AI FESTA 2026(2026-10-06~08 코엑스), Japan IT Week(해외 현장). 주최·후원이 아니라 세지 않았다(검색 근거)
+  - NHN Cloud 웨비나는 이벤터스에 2025-05까지 보였다. 기간 안 회차는 미확인이다(검색 한도 소진)
+  - 세션 검색 한도(200회)가 조사 중 소진돼 모음 사이트 확인을 다 하지 못했다
+
+## 야놀자
+- 조사 범위: 야놀자 그룹 사이트(야놀자), 놀유니버스(NOL UNIVERSE). 야놀자클라우드솔루션·야놀자넥스트(AI)·산하정보기술은 그룹 보도자료 제목으로만 봤다.
+- 공지 위치:
+  - 이벤트 목록 페이지 `https://www.yanoljagroup.com/ko/press_release`(보도자료) — 읽기: SSR / robots: 허용(`Allow: /`) / 첫 쪽 9건(2026-09-08~10-20) 중 개발자 행사 0건. 참가 보도 2건(ITB 아시아 2026, 인공지능 페스타 2026)과 NOL FESTIVAL 2026(음악·여행 축제)이 있다. 다음 쪽 경로는 HTML에서 찾지 못했다
+  - 이벤트 목록 페이지 `https://www.yanoljagroup.com/ko/blog` — 읽기: SSR / robots: 허용 / 6건(2026-05-20~08-27) 중 개발자 행사 0건. "AI EXPO KOREA 2026"(참가)과 NOL FESTIVAL 소식이 있다
+  - 기술 블로그 RSS `https://medium.com/feed/yanolja` — 읽기: 공식 API·RSS / robots: 허용(medium.com, `/feed` 금지 없음) / 마지막 글이 2022-12-29다
+  - 기술 블로그 `https://yanolja.github.io` — 읽기: 불가 / robots: robots 없음 / GitHub Pages "Site not found"다
+  - 놀유니버스 `https://nol-universe.com/ko` — 읽기: SSR / robots: 허용(`Disallow:` 빈 값) / 첫 화면에 기술 블로그·행사 메뉴가 없다(보도자료·라이브러리·스토리만)
+  - SNS: LinkedIn `https://www.linkedin.com/company/yanolja`, YouTube `https://www.youtube.com/@YanoljaOfficial`
+- 약관: 미확인. 그룹 사이트 바닥글에는 개인정보처리방침(`/policy`)만 있다. `www.yanolja.in`은 그룹 사이트로 301되고 그 robots.txt는 404다. `www.yanolja.com/robots.txt`는 `nol.yanolja.com`으로 연결되고 `/search/`, `/member/` 등만 막는다.
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 0건 확인, 후원 발견 0건
+  - 그룹 보도자료 첫 쪽·블로그에서 개발자 행사를 찾지 못했다. 그 밖의 기간은 미확인(검색 한도 소진)
+- 예정(2026-11 이후): 찾지 못했다.
+- 메모:
+  - 그룹 공식 채널에 보이는 행사는 남의 행사 참가뿐이다: AI EXPO KOREA 2026, 인공지능 페스타 2026, ITB 아시아 2026(해외 현장)
+  - 운영 중인 기술 블로그를 찾지 못했다(Medium 2022년 멈춤, GitHub Pages 없음)
+  - 세션 검색 한도가 소진돼 과거 행사 수와 모음 사이트 등장 여부를 검색하지 못했다
+
+## 무신사
+- 조사 범위: 무신사(무신사 테크). 계열사는 보지 않았다.
+- 공지 위치:
+  - 기술 블로그 RSS `https://medium.com/feed/musinsa-tech`(화면 `https://techblog.musinsa.com`, Medium 사용자 도메인) — 읽기: 공식 API·RSS / robots: 허용(medium.com·techblog.musinsa.com 모두 `/feed` 금지 없음. ClaudeBot·GPTBot 등 학습 봇은 전체 금지) / 10건(2026-07-09~10-19) 중 행사 공지 1건(2026-08-24 "코딩만 빨라졌다고요? 아뇨, 일하는 방식이 다 뜯어고쳐졌습니다."). `cache-control: private, must-revalidate, max-age=900`, ETag 없음
+  - 공식 행사 사이트 `https://pattern.musinsa.com/` — 읽기: CSR(단일 행사) / robots: 허용(`Allow: /`) / HTML에는 제목 "MUSINSA PATTERN ’26 Tech Conference"와 RSC 데이터의 `"deadline":"2026-08-31"`만 있다. 일정·장소는 없다. `last-modified: Thu, 03 Sep 2026 07:10:25 GMT`. Cloudflare
+  - 이벤트 목록 페이지 `https://corp.musinsa.com/newsroom/press`(보도자료) — 읽기: CSR / robots: robots 없음(`/robots.txt`가 200 HTML 페이지) / 원본 HTML은 "보도자료 0 건의 소식이 있습니다"다
+  - SNS: YouTube `https://www.youtube.com/musinsatv`, Instagram `https://www.instagram.com/musinsa.official/`, X `https://x.com/musinsaofficial`, TikTok `https://www.tiktok.com/@musinsa.official`
+- 약관: 미확인. 뉴스룸·행사 사이트 바닥글에 이용약관 링크가 없다(행사 사이트는 개인정보처리방침만). Medium 라이선스 `https://medium.com/license.xml`은 403(Cloudflare "Sorry, you have been blocked")이다.
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 1건, 후원 발견 0건
+  - MUSINSA PATTERN ’26 Tech Conference — 2026-09-18(금) 10:00~17:30 — 컨퍼런스 — 국내(본다빈치뮤지엄, 서울 광진구) — 주최(행사 사이트 바닥글 "주최 무신사 테크") — 모음 사이트: 미확인(검색 한도 소진) — 근거: 기술 블로그 RSS 2026-08-24 글, `https://pattern.musinsa.com/`
+- 예정(2026-11 이후): 찾지 못했다.
+- 메모:
+  - PATTERN ’26: 무료, 사전 등록 2026-08-19~08-31, 선정제(9-03 문자 안내), 신청은 행사 사이트 자체 양식이다. 블로그 공지는 행사 25일 전이다
+  - 이전 회차가 있는지는 미확인이다
+  - RSS는 최신 10건만 준다. 2025-11~2026-07 블로그 행사 공지는 확인하지 못했다(검색 한도 소진)
+
+## 컬리
+- 조사 범위: 컬리 단일. 핀테크그룹 글도 같은 기술 블로그에 올라온다. 별도 계열사 사이트는 보지 않았다
+- 공지 위치:
+  - 기술 블로그 RSS `https://helloworld.kurly.com/rss.xml` — 읽기: 공식 API·RSS / robots: 허용 / 120건 전체가 들어 있다(2023-04~2026-05). 최신 글 2026-05-21. `etag`, `last-modified` 있다. 최근 12개월 글 15건 중 행사 글 0건
+  - 기술 블로그 `https://helloworld.kurly.com/` — 읽기: SSR(Astro) / robots: 허용 / head에 RSS alternate 링크가 있다
+- 약관: 블로그에 약관 링크가 없다. 컬리 쇼핑몰 이용약관 원문은 미확인. `www.kurly.com/robots.txt`는 `*`에 `/mypage/`, `/order/`, `/popup/`, `/games/`만 막는다
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 0건, 후원 발견 0건
+- 예정(2026-11 이후): 찾지 못함
+- 메모:
+  - 검색 5회(밋업·컨퍼런스·해커톤·세미나·모음 사이트)에서 컬리 개발자 행사를 찾지 못했다(검색 근거)
+  - 블로그 RSS의 마지막 행사성 글은 2023년이다. slug `2022-5th-tech-meetup-web-frontend`(2023-04 글), "헤이조이스 웨비나를 소개합니다"(2023-05)
+  - 2023 "컬리 푸드 페스타" 부대 컨퍼런스는 유료 푸드 비즈니스 행사다. 개발 행사가 아니다(검색 근거)
+
+## 오늘의집(버킷플레이스)
+- 조사 범위: 버킷플레이스(오늘의집) 단일
+- 공지 위치:
+  - 기술 블로그 `https://www.bucketplace.com/culture/Tech/` — 읽기: SSR(Gatsby 5.5) / robots: 허용 / 글 주소가 `/post/YYYY-MM-DD-제목/`이라 날짜를 주소에서 읽는다. 최근 글 2026-10-16. 12건 중 행사 글 0건
+  - 문화 전체 `https://www.bucketplace.com/culture/` — 읽기: SSR / robots: 허용 / 12건 중 행사 글 0건
+  - RSS: 찾지 못했다. head에 alternate 링크가 없고 `/rss.xml`은 404다
+  - SNS: Instagram `https://www.instagram.com/todayhouse/`(블로그 링크)
+- 약관: 약관 없음. bucketplace.com에는 개인정보 처리방침(`/policy/`, 채용 지원자 대상)만 있다
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 0건, 후원 발견 0건
+- 예정(2026-11 이후): 찾지 못함
+- 메모:
+  - 검색 3회(밋업·컨퍼런스·해커톤·후원·모음 사이트)에서 개발자 행사를 찾지 못했다(검색 근거). 나온 것은 채용, 일본 팝업, 오프라인 쇼룸이다
+  - 2026-08-07 글 "12주년, 그 너머를 보는 시간 ㅡ 오늘의집 2026 HALFTIME"은 제목상 사내 행사다(본문 미확인)
+
+## 업스테이지
+- 조사 범위: 업스테이지 단일. 이벤트 페이지의 영문·한국어·일본어 3탭을 모두 봤다
+- 공지 위치:
+  - 이벤트 목록 페이지 `https://www.upstage.ai/events` — 읽기: SSR(Webflow CMS) / robots: 허용(`*` Allow /. ClaudeBot·GPTBot·CCBot·Bytespider 등 학습 봇만 Disallow) / 카드 40개가 한 페이지에 있다. 페이지네이션 없음. 카드에는 제목·일시·게시일과 일부 외부 링크(Luma)만 있다. 종류·장소 필드가 없다. 종류는 이미지 파일명("릴레이세미나_…", "웨비나_…", "업스테이지 밋업_…")에서만 보인다. Cloudflare 응답, `last-modified` 있다
+  - 블로그 `https://www.upstage.ai/blog` — 읽기: SSR / robots: 허용 / RSS 찾지 못함(head에 alternate 없음). 행사 글은 2024 리캡 정도다
+  - 공식 행사 사이트 `https://www.upstage.ai/mabc-2026`(MABC 2026) — 읽기: SSR / robots: 허용 / 일정이 본문 텍스트에 있다
+  - 모음 사이트 Luma `https://luma.com/nv57vgh9`, `https://luma.com/49xc08fw` — 이벤트 카드의 링크로 확인했다. 직접 요청하지 않았다
+- 약관: `https://www.upstage.ai/terms-of-service`(2026-09-21 시행, 콘솔 회원 대상). 크롤링 명시 조항은 없다. 제7조(회원의 일반적인 의무) "서비스의 비정상적인 트래픽을 유발하는 행위 및 허용되지 않은 자동화 프로그램을 사용하는 행위 (DDos, 해킹 등)". 제23조(서비스 저작권 및 사용권) "회원은 회사(혹은 원 권리자)의 지식재산권을 복사, 개조, 변경 하는등 일체의 침해행위를 할 수 없습니다"
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 10건(릴레이 세미나 10Talks는 1건으로 셈), 후원 발견 0건
+  - 10Talks 독자 파운데이션 모델 컨소시엄 세미나 — 2025-11-21~2026-03-06 매주 금 11시 — 세미나(릴레이) — 온라인 여부 미확인 — 주최 — 모음 사이트: 미확인 — 근거: `https://www.upstage.ai/events`
+  - Scaling Parametric Knowledge Acquisition Beyond RAG — 2026-04-17 — 세미나(릴레이) — 온라인 여부 미확인 — 주최 — 모음 사이트: 미확인 — 근거: `https://www.upstage.ai/events`
+  - AI에게 일 잘 시키는 기술 — 하네스 설계부터 Skill 활용까지 — 2026-05-08 — 세미나(릴레이) — 온라인 여부 미확인 — 주최 — 모음 사이트: 미확인 — 근거: `https://www.upstage.ai/events`
+  - Envisioning the future of AI @ ICML 2026 — 2026-07-07 19:00 KST — 네트워킹 행사 — 장소 미확인(시각은 KST 표기) — 주최 — 모음 사이트: Luma — 근거: `https://www.upstage.ai/events`
+  - Making AI Beneficial Challenge(MABC) 2026 — 2026-07-08 신청 오픈, 온라인 예선 8.18~8.31, 온라인 결선 9.9~9.18, 오프라인 최종 발표 9.19 — 공모전 — 국내·온라인 — 주관(업스테이지·타임리. 과학기술부총리상·NIA 원장상) — 모음 사이트: 미확인 — 근거: `https://www.upstage.ai/mabc-2026`
+  - KoALa-Bench: 한국어 음성 이해 및 충실성 평가를 위한 대규모 오디오 언어 모델 벤치마크 — 2026-07-09 — 세미나(릴레이) — 온라인 여부 미확인 — 주최 — 모음 사이트: 미확인 — 근거: `https://www.upstage.ai/events`
+  - Solar Open Day — 2026-07-10 17:00 KST — 종류 미확인 — 장소 미확인 — 주최 — 모음 사이트: Luma — 근거: `https://www.upstage.ai/events`
+  - 퇴근길 AX 문서 자동화 네트워킹 밋업 — 2026-07-23 19:00 — 밋업 — 장소 미확인 — 주최 — 모음 사이트: 미확인 — 근거: `https://www.upstage.ai/events`
+  - 개발자 아니어도 따라 하는 Claude Code & Hermes Agent에서 Solar 실전 활용하기 — 2026-07-31 — 웨비나(현재 온디맨드 다시보기) — 온라인 — 주최 — 모음 사이트: 미확인 — 근거: `https://www.upstage.ai/events`
+  - AX 시대, 우리 회사에 맞는 AI 운영 전략 — 2026-10-15 — 웨비나(Solar Mini 4, 기업 대상) — 온라인 — 주최 — 모음 사이트: 미확인 — 근거: `https://www.upstage.ai/events`
+- 예정(2026-11 이후): 이벤트 페이지에 한국 행사 예정 0건. "Upstage-AWS AI Initiative"(~2027-03-31)가 Featured로 걸려 있다. 종류 미확인(카드에 일정 외 정보 없음)
+- 메모:
+  - 웹 검색 한도가 세션 전체에서 소진됐다. 그래서 외부 공동 주최 해커톤·후원 행사와 모음 사이트 등장 여부를 검색으로 확인하지 못했다. 위 "모음 사이트: 미확인"은 그 때문이다
+  - 2025-11~12 해커톤은 검색 1회에서 찾지 못했다(검색 근거). 2025-12 "독자 AI 파운데이션 모델" 1차 발표회는 정부 사업 발표회다(검색 근거)
+  - 빼는 것: 2025 Upstage Career Talk(채용, 2025-09), 2025 Meta Llama Academy(교육, 2025-08)
+  - 해외 현장 행사(세지 않음): ITC Vegas 2026(9.29~10.1), Insurtech on the Silicon Prairie(10.19~20), TMPAA Summit 2026(10.19~21), AWS re:Invent 2025, 일본 탭 행사(ITC Japan, SusHi Tech Tokyo 2026, Nikkei GenAI/SUM 2026, CTC DISCOVER 2026 등 일본어 카드 17개. 중복 카드 포함)
+  - 한국 탭 행사는 2026-07에 몰려 있다(6건). 릴레이 세미나는 2025-11부터 이어진다
+
+## 넥슨
+- 조사 범위: 넥슨코리아(본사), 넥슨게임즈, 네오플, 넥슨재단, 메이플스토리 월드(MSW). 네오플·넥슨재단 행사는 검색에서 찾지 못했다. devCAT·민트로켓·넥슨유니버스는 검색 한도가 다 차서 보지 못했다
+- 공지 위치:
+  - 공식 행사 사이트 `https://ndc.nexon.com` — 읽기: CSR / robots: EVENT_SITES 기준 / NDC는 EVENT_SITES·SOURCE_CANDIDATES 기준. 다시 요청하지 않았다
+  - 공식 행사 사이트 `https://nypc.github.io` — 읽기: 불가 / robots: EVENT_SITES 기준 / EVENT_SITES 기준 `nypc.nexon.com`은 DNS가 없고 아카이브만 열린다. 2026 개편판의 공식 주소는 미확인. 보도는 "NYPC 공식 홈페이지"에서 신청했다고만 적는다(검색 근거)
+  - 공식 행사 사이트 재밌넥 — 읽기: 미확인 / robots: 미확인 / 보도에 "재밌넥 공식 홈페이지"가 나오지만 주소는 찾지 못했다(검색 근거)
+  - 기술 블로그(기업 블로그 "넥슨태그") `https://blog.nexon.com` — 읽기: 숨은 API / robots: 허용(`Allow: /`) / 원본 HTML은 빈 `id="root"`다. 번들에 `baseURL "https://blog.nexon.com/api/community"`와 `/community/375/threads`가 있다. `GET https://blog.nexon.com/api/community/community/375/threads?type=WEB&paginationType=MORE&pageSize=20`을 헤더 없이 1회 호출했고 200이었다. 번들의 인증 헤더 값(`VITE_URL_HEADER_X_INTERFACE_API_KEY`)은 비어 있다. 데이터 경로는 `threads[]`의 `threadId`, `title`, `createDate`(초 단위), `boardId`다. 다음 쪽은 `lastKey`다. 20건(2026-08-06~10-15)은 같은 글이 게시판 두 곳에 실려 실제 10편이다. 행사 사전 공지는 0건이다. 행사 후기 글만 있다(NYPC "프로그래밍 대회가 AI를 허용한 이유는 무엇일까?" 2026-09-28). RSS 링크는 찾지 못했다. `sitemap.xml`은 2023-07에 멈춰 있다
+  - 이벤트 목록 페이지(회사 소식) `https://company.nexon.com/kr/news` — 읽기: CSR / robots: 허용(`Disallow: /Company/Introduce/NexonCI/CI.aspx`만 금지) / 원본 HTML 본문은 25자다. 번들에 `VITE_API_URL:"https://company.nexon.com/api/v1"`, `/community-ext-api/community/331/boards`가 있다(호출하지 않았다). 메뉴의 "News ↗"는 외부 링크다. 번들에 `NEXON_BLOG_LINK="https://blog.nexon.com"`가 있다
+  - 공식 행사 사이트(메이플스토리 월드) `https://maplestoryworlds.nexon.com` — 읽기: 내장 데이터(`__NUXT__`). 공지 목록 경로는 미확인 / robots: robots 없음(404) / 이 UA로 요청하면 `/en/play`로 두 번 연결된다. 푸터에 "Toben Studio Inc."가 있다. 메뉴에 "MSW Next Global Creator Challenge"가 있다. 메커톤과 글로벌 개발 콘테스트가 이 플랫폼 행사다
+  - 모음 사이트 — 씽유(재밌넥 2026 `thinkyou.co.kr/extAct/64276/`, 메이플스토리 글로벌 개발 콘테스트 `thinkyou.co.kr/contest/63808/`), 슈퍼루키(메커톤 `superookie.com/activities/69e98a1554d45962c94bbb79`), 링커리어(게임잼 공고 `linkareer.com/activity/329664`, 행사명·연도 미확인)(모두 검색 근거)
+  - 그 밖(보도자료·대학 공지) — 메커톤 모집 공고가 서울대 컴퓨터공학부 공지 `https://cse.snu.ac.kr/community/notice/25065`에 올라왔다(검색 근거)
+- 약관: SOURCE_CANDIDATES 기준 넥슨 통합 약관 `https://m.nexon.com/terms/535`. 크롤링 명시 조항은 없다. 제11조 ① "4. … 이를 이용하여 얻은 정보를 회사의 사전 승낙 없이 복제, 유통하거나 상업적으로 이용하는 행위"(회원 대상). blog.nexon.com·company.nexon.com의 별도 약관은 미확인
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 6건, 후원 발견 0건
+  - 메이플스토리 글로벌 개발 콘테스트 — 접수 2026-05-28(씽유 표기는 06-04)~10-07 — 공모전(MSW 게임 개발, 지원금 약 18억 원, 30팀 선정) — 온라인 제출(글로벌) — 주최 — 모음 사이트: 씽유 — 근거: 검색 근거(`thisisgame.com/articles/427760`, `youthdaily.co.kr/news/article.html?no=218222`)
+  - 2026 한국게임학회 × 넥슨게임즈 전국 대학생 디지털아트 공모전 — 시상 2026-05-30, 접수 기간 미확인 — 공모전(게임 아트) — 국내 — 공동 주최(넥슨게임즈·한국게임학회) — 모음 사이트: 미확인 — 근거: 검색 근거(`invenglobal.com/lol/articles/23399`)
+  - NDC26 — 2026-06-16~18 — 컨퍼런스 — 국내(판교) — 주최 — 모음 사이트: 미확인 — 근거: EVENT_SITES 기준
+  - NYPC 2026(넥슨 영 프로그래머스 컵, AI 전략형으로 개편) — 신청 06-04부터, 예선 마스터 06-29~07-08·루키 07-10~19, 본선 2026-08-29 서울 — 대회 — 예선 온라인, 본선 국내 — 주최 — 모음 사이트: 미확인 — 근거: 검색 근거(`ddaily.co.kr/page/view/2026060417150819116`, `youthdaily.co.kr/mobile/article.html?no=223736`). 루키는 만 14~18세, 마스터는 만 19세 이상 대학생이다
+  - 2026 메커톤(메이플스토리 IP 해커톤) — 1회차 2026-07-03~05(대학·대학원생), 2회차 07-10~12(만 19세 이상), 모집 04-27~05-11 — 해커톤 — 국내(판교 사옥) — 주최 — 모음 사이트: 슈퍼루키 — 근거: 검색 근거(`cse.snu.ac.kr/community/notice/25065`, `byline.network/2026/04/27-621/`)
+  - 2026 넥슨 대학생 게임잼 '재밌넥' — 2026-07-24~26, 접수 06-18~28 — 해커톤(게임잼) — 국내(판교 사옥) — 주최 — 모음 사이트: 씽유, 링커리어(연도 미확인) — 근거: 검색 근거(`etoday.co.kr/news/view/2595841`, `youthdaily.co.kr/mobile/article.html?no=223845`)
+- 예정(2026-11 이후): 찾지 못했다. 검색 한도가 다 차서 추가 검색은 하지 못했다
+- 메모:
+  - 기간 직전 행사: NYPC 2025 본선과 NYPC 코드배틀 파이널은 2025-10-25 판교였다(검색 근거). 기간 밖이다
+  - 세지 않은 것: 2026 무기 스킨 아이디어 공모전(넥슨코리아, 접수 07-25~08-06)은 게임 이용자 대상 아이디어 공모다. 오버워치 넥슨컵은 e스포츠다
+  - 주기: 행사가 6~8월에 몰린다(NDC 6월, 메커톤·재밌넥 7월, NYPC 6~8월). 재밌넥은 2023-07-21~23, 2025-07-18~20에도 열렸다(검색 근거). 2025-11~2026-05에는 찾은 행사가 없다
+  - 공지 경로: 사전 공지는 보도자료와 대학 공지로 나간다. 넥슨 자체 사이트에서 읽을 수 있는 행사 공지 목록은 찾지 못했다
+  - 미확인(검색 한도 소진): NDC·NYPC의 모음 사이트 등장, event-us·ticketa·okky·wevity 등장, 후원 행사, devCAT·민트로켓 행사. `site:wevity.com 넥슨`은 위비티 페이지를 하나도 돌려주지 않았다
+
+## 엔씨소프트
+- 조사 범위: 엔씨소프트(NC) 본사, NC AI(2025년 초 분사한 AI 계열사, 검색으로만 봤다), NC Research 블로그. NC문화재단은 링크(`https://www.ncfoundation.or.kr/main`)만 확인하고 조사하지 않았다
+- 공지 위치:
+  - 이벤트 목록 페이지(기업 미디어 "NC PLAY" 보도자료) `https://about.ncsoft.com/news/press-release` — 읽기: SSR / robots: 허용(`Allow: /`) / 원본 HTML에 날짜와 제목 12건이 있다. 같은 목록이 `__INITIAL_STATE__.__COMPONENTS_STATE__["news-list"].list[]`(`sq`, `slug`, `title`)에도 있다. 12건(2026-10-14~10-22)은 모두 게임 업데이트·출시·전시 참가 소식이다. 개발자 행사는 0건이다. `blog.ncsoft.com`은 `about.ncsoft.com`으로 연결된다. R&D 분류 `/news/rd`가 있다(요청하지 않았다)
+  - 기술 블로그 RSS(NC Research) `https://ncsoft.github.io/ncresearch/feed.xml` — 읽기: 공식 API·RSS(Atom) / robots: robots 없음(`ncsoft.github.io/robots.txt` 404) / 10건이고 최신 글은 2025-01-22다. 행사 글은 0건이다. NC AI 분사 뒤로 새 글이 없다
+  - 그 밖(게임 포털) `https://www.nc.com` — 읽기: 게임 포털이라 행사 목록이 없다(Next.js `self.__next_f`) / robots: `/kr/`, `/intro/`, `/group/`, `/live/` 등을 금지한다 / `www.ncsoft.com`은 `www.nc.com`으로 301·302 연결된다. 회사 sitemap(`/company/sitemap/sitemap.xml`)에는 about·ir·sustainability·etc만 있고 뉴스는 없다
+  - 공식 행사 사이트(NC AI) — 읽기: 미확인 / robots: 미확인 / NC AI 사이트 주소는 찾지 못했다(검색 한도 소진)
+  - 모음 사이트 — 씽유에 바르코 보이스 공모전 `thinkyou.co.kr/contest/59423/`(회차 미확인, 검색 근거)
+- 약관: NC PLAY 운영정책 `https://about.ncsoft.com/blog-operating-policy`가 있다. 원본 HTML에 본문이 없어(CSR) 조항은 미확인이다. 엔씨 통합 이용약관은 미확인
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 2건, 후원 발견 0건
+  - 제2회 바르코 보이스 활용 게임 제작 공모전(NC AI) — 접수 기간 미확인, 수상 발표 2026-01-12 — 공모전 — 국내(참가 방식 미확인) — 주최 — 모음 사이트: 씽유(회차 미확인) — 근거: 검색 근거(`ddaily.co.kr/page/view/2026011209212852112`). 80여 팀이 참가했다. 접수가 2025-11 전에 끝났는지는 미확인
+  - 서울 플레이업 AI 게임 챌린지(SBA × NC AI) — 2026-04 공고, 2026-09 GES 2026(DDP)에서 발표·시상 — 공모전 — 국내 — 공동(서울경제진흥원과 함께, NC AI의 정확한 역할 표기는 미확인) — 모음 사이트: 미확인 — 근거: 검색 근거(`heraldk.com/article/2026041620482850350`, `news.seoul.go.kr/economy/archives/572130`)
+- 예정(2026-11 이후): 찾지 못했다
+- 메모:
+  - 엔씨 본사 이름으로 연 개발자 컨퍼런스·해커톤·공모전은 검색에서 찾지 못했다. 공모전은 NC AI가 바르코(VARCO) 제품 홍보용으로 연다
+  - 기간 밖: 제1회 바르코 3D 게임 제작 공모전은 2025-09-19 수상 발표였다(검색 근거)
+  - 세지 않은 것: 지스타 2025 메인 스폰서와 'Startup with NC' 부스(게임 전시회, 검색 근거), AGF 2026 메인 스폰서(NC PLAY 보도자료 직접 확인), 게임스컴 2026 출품(해외 전시)
+  - 공지 경로: 공모전 공지는 보도자료와 공모전 모음 사이트(씽유)로 나간다. NC PLAY 보도자료 목록에 NC AI 공모전이 올라오는지는 미확인(최근 12건에는 없다)
+  - 미확인(검색 한도 소진): NC AI 사이트·블로그, `site:` 모음 사이트 검색, 바르코 공모전 2026 회차, NC문화재단 행사, 후원 행사
+
+## 넷마블
+- 조사 범위: 넷마블(본사, `company.netmarble.com`), 넷마블문화재단(검색에 보인 것만). 넷마블네오·넷마블에프앤씨 등 개발 자회사는 따로 검색하지 못했다(검색 한도 소진). 코웨이는 제외했다.
+- 공지 위치:
+  - 이벤트 목록 페이지(보도자료) `https://company.netmarble.com/news/list?pageNo=1` — 읽기: 숨은 API / robots: 허용(`Allow: /`) / 목록은 jQuery 템플릿(`{{html title}}`)으로 그린다. 데이터 `GET https://company.netmarble.com/api/articles/3991/1`(인증 없음, 200 JSON). `articleExtendedResponse.articles[]`의 `seq`, `title`, `regDate`. 10건 모두 게임 업데이트 보도자료다(최신 2026-10-22)
+  - 공식 행사 사이트: 찾지 못했다. `www.netmarble.com`은 게임 포털이다. `/robots.txt`가 robots 대신 HTML 200을 돌려준다(robots 없음)
+  - 기술 블로그 RSS: 기술 블로그를 찾지 못했다(검색 근거)
+  - SNS 네이버 블로그 `https://blog.naver.com/marbleblog` — 읽기: 불가 / robots: 금지(`rss.blog.naver.com` robots `User-agent: *` `Disallow: /`) / RSS는 요청하지 않았다
+  - SNS Facebook `https://www.facebook.com/netmarble/`, YouTube `https://www.youtube.com/user/netmarble` — URL만 기록
+  - 넷마블문화재단: `foundation.netmarble.com`은 DNS가 없다. 재단 사이트 주소 미확인
+  - 채용 사이트 `https://career.netmarble.com/` — 마블챌린저(서포터즈) 모집 경로다(검색 근거). 요청하지 않았다
+- 약관: 미확인. 회사 사이트 푸터에는 개인정보처리방침(`/etc/policy`)만 있다.
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 1건(개발자 대상 행사는 0건), 후원 발견 0건
+  - 2026 전국 장애학생 e페스티벌 — 예선 2026-05-27~07-10, 본선 2026-09-08~09(강원 홍천) — 대회(IT 부문 로봇 코딩 등 18종목, e스포츠 11종목, 장애학생 대상) — 국내 — 공동 주최(넷마블문화재단, 2009년부터) — 모음 사이트: 찾지 못함(site: 검색 못 함) — 근거: 검색 근거(`invenglobal.com/articles/22202`)
+- 예정(2026-11 이후): 찾지 못했다.
+- 메모:
+  - 개발자 대상 컨퍼런스·해커톤·공모전·밋업은 검색에서 찾지 못했다(검색 근거).
+  - 세지 않은 비개발 행사: 넷마블문화재단 어깨동무문고 공모전(그림책, 접수 2026-07-31~08-29, 더팀스 `theteams.kr/activities/page/334974`·씽유 `thinkyou.co.kr/contest/61046`에 보임, 검색 근거), 나 혼자만 레벨업: 어라이즈 챔피언십 2026(04-25, e스포츠), 마블챌린저 26기(대학생 서포터즈, 접수 ~08-10), TGS 2026 출품(해외 게임쇼), 넷마블 게임콘서트(재단 오픈 포럼, 2022 회차만 검색됨).
+  - 세션 공용 검색 한도(200회)가 소진돼 자회사별 검색과 site: 검색을 하지 못했다.
+  - 사이트 직접 요청 7회.
+
+## 크래프톤
+- 조사 범위: 크래프톤(본사), 크래프톤 AI 조직(`krafton.ai`), 펍지 스튜디오(검색에 보인 PUBG MOBILE 공모전만). 다른 개발 스튜디오는 따로 검색하지 못했다(검색 한도 소진). 크래프톤 정글과 BETTER GROUND(청소년 교육 프로그램)는 세지 않았다.
+- 공지 위치:
+  - 그 밖(회사 사이트) `https://www.krafton.com` — 읽기: 불가 / robots: 미확인(`/robots.txt`도 403) / 메인과 robots.txt 모두 CloudFront 403 "Request blocked."(우회하지 않음)
+  - 기술 블로그 RSS `https://krafton.ai/feed/` — 읽기: 공식 API·RSS / robots: 허용(`Disallow:` 빈 값, Yoast) / WordPress. 10건, 최신 2026-07-29. 모델 공개·수상·인사 소식이다. 해커톤 공지 글은 없다
+  - 이벤트 목록 페이지 `https://krafton.ai/programs/` — 읽기: SSR / robots: 허용 / AI Fellowship과 학회 출장·초청 세미나(구성원 대상) 소개만 있다. 해커톤 항목이 없다
+  - 기술 블로그 RSS `https://blog.krafton.com/feed/` — 읽기: 공식 API·RSS / robots: 허용(`/wp-admin/`만 금지) / 9건, 최신 2025-02-10, `lastBuildDate` 2025-02-11. 갱신이 멈췄다
+  - SNS LinkedIn(직원 게시물) — 하반기 해커톤 일정은 여기서 확인됐다(검색 근거). URL만: `https://kr.linkedin.com/in/jinyoung-yang-5a877110b`
+  - greenhouse 채용 공고 `https://job-boards.greenhouse.io/krafton` — 해커톤 검색 결과에 함께 나왔다. 해커톤 공고인지 미확인. 요청하지 않았다
+- 약관: 미확인. `krafton.ai` 푸터는 `https://www.krafton.com/privacy-policy/`(개인정보처리방침)만 링크하고, 그 호스트는 403이다.
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 4건(1건은 게임 안 맵 제작 공모전), 후원 발견 0건
+  - KRAFTON AI R&D 해커톤(상반기) — 신청 마감 03-27, 예선 03-28~29(온라인, 각 4시간), 본선 04-04~05(역삼 크래프톤 오피스) — 해커톤 — 국내(예선 온라인) — 주최 — 모음 사이트: 찾지 못함(site: 검색 못 함) — 근거: 검색 근거(`venturesquare.net/1067128`, LinkedIn). 연도를 적은 기사는 보지 못했다. 요일은 2026년과 맞는다
+  - 코파톤: AI 네이티브 배틀그라운즈(Cofathon) — 모집 2026-07-08~17, 행사 2026-07-30(펍지 성수) — 해커톤 — 국내 — 주최(CJ올리브영 공동) — 모음 사이트: 링커리어 커뮤니티 `community.linkareer.com/employment_news/6216862`(검색 결과) — 근거: 검색 근거(디지털데일리 2026-07-08 `ddaily.co.kr/page/view/2026070811331300430`)
+  - KRAFTON AI R&D 해커톤(하반기) — 지원 마감 2026-09-30, 온라인 과제 10-01~10-29 — 해커톤 — 온라인 — 주최 — 모음 사이트: 찾지 못함(site: 검색 못 함) — 근거: 검색 근거(LinkedIn 게시물)
+  - 2026 PUBG MOBILE 크래프트 그라운드 공모전 — 접수 2026-08-10~09-02, 발표 10-16 — 공모전(게임 안 UGC 모드로 맵 제작, 한·일 이용자 대상, 총상금 2,400만 원) — 온라인 — 주최 — 모음 사이트: 더팀스 `theteams.kr/activities/page/338663`(검색 결과 제목 일치) — 근거: 검색 근거
+- 예정(2026-11 이후): 찾지 못했다.
+- 메모:
+  - 해커톤 3건 모두 채용 혜택(서류·면접 면제)이 붙는다.
+  - 해커톤 공지는 언론 보도와 LinkedIn에서 보였다. 자사 RSS 두 곳에는 해커톤 글이 없었다.
+  - 2025년 AI R&D 해커톤 회차는 찾지 못했다(검색 근거).
+  - 세지 않은 것: 크래프톤 정글(통합설명회 접수 2025-11-07~12-04), BETTER GROUND 2026 Final(09-18, 청소년 게임 개발 교육), KRAFTON AI Fellowship(연구 인재 양성, 4기 모집), 게임스컴 2026(해외 게임쇼).
+  - 세션 공용 검색 한도(200회)가 소진돼 site: 검색을 하지 못했다.
+  - 사이트 직접 요청 8회.
+
+## 스마일게이트
+- 조사 범위: 그룹 뉴스룸(홀딩스·RPG·엔터테인먼트·스토브 보도자료), 스마일게이트 퓨처랩(재단, 인디게임 공모·게임잼 운영, 포함), 스마일게이트 AI센터(`smilegate.ai`, 연결 시간 초과), 오렌지플래닛(창업 지원, 개발 공모전·해커톤은 찾지 못함). 희망스튜디오(사회공헌)는 보지 않았다.
+- 공지 위치:
+  - 이벤트 목록 페이지(보도자료 RSS) `https://newsroom.smilegate.com/bbs/rss.php?bo_table=news` — 읽기: 공식 API·RSS / robots: 허용(robots에 `User-agent: Yeti` `Allow:/`만 있다. 다른 봇 규칙 없음) / 그누보드 RSS. 10건, 최신 2026-10-22. 게임 업데이트·e스포츠·사회공헌 글이다. 개발 행사 글은 없다
+  - 이벤트 목록 페이지(보도자료) `https://newsroom.smilegate.com/bbs/board.php?bo_table=news` — 읽기: SSR / robots: 허용 / 229쪽
+  - 이벤트 목록 페이지(뉴스룸 이벤트) `https://newsroom.smilegate.com/main/event.html` — 읽기: SSR / robots: 허용 / 퀴즈 이벤트만 있다
+  - 이벤트 목록 페이지(퓨처랩 프로그램 신청) `https://www.futurelab.center/front/program/program` — 읽기: 숨은 API / robots: 허용(`/api/`, `/front/program/request/` 등만 금지) / 화면은 Handlebars 템플릿(`{{contTitle}}`). 데이터 `GET https://www.futurelab.center/front/program/selectProgramList?PAGE_NO=1&PAGING_COUNT=30`(인증 없음, 200 JSON). `list[]`의 `contSeq`, `contTitle`, `applicationStart`, `applicationEnd`, `progressStatus`. 전체 441건. 첫 응답 30건의 최신 신청 시작일은 2026-01-30이다. "2026 인디게임 프로토타이핑 챌린지 3기"(seq 839)는 `preTitle`로만 보였다. 정렬 기준 미확인. 분류 필터에 GAME JAM, IndieGo, 비버롹스, 버닝비버, Meet up이 있다. 청소년·교육자 워크숍이 많이 섞인다
+  - 퓨처랩 공지사항 `https://www.futurelab.center/front/news/news` — 요청하지 않았다. 메인의 공지 목록도 템플릿(`{{newsTitle}}`)이다
+  - 공식 사이트 `https://www.smilegate.com` — robots 없음(404) / 그룹 소개 사이트. 행사 목록이 없다
+  - `https://smilegate.ai` — robots.txt 요청이 20초 시간 초과
+  - SNS Facebook `https://www.facebook.com/Smilegate.Official/`, Instagram `https://www.instagram.com/smilegate_official/`, YouTube `https://www.youtube.com/user/SGinternet`, LinkedIn `https://kr.linkedin.com/company/smilegate` — URL만 기록
+- 약관: 미확인. 그룹 사이트 푸터에는 개인정보처리방침(`/ko/privacy.do`)만 있다. 퓨처랩 서비스 이용약관 `https://www.futurelab.center/front/footer/terms`는 원본 HTML에 본문이 없다(스크립트로 불러온다). 퓨처랩 페이지 메타는 `robots: index,follow`다.
+- 최근 12개월 행사(2025-11~2026-10): 주최·주관 4건, 후원 발견 0건
+  - 비버롹스 2025 — 2025-12 초(개막 보도 2025-12-05, 정확한 날짜 미확인) — 인디게임 축제(전시, 비버잼 결과작 시연존). 정해진 행사 종류 밖이라 애매 — 국내 — 주최(퓨처랩) — 모음 사이트: 찾지 못함(site: 검색 못 함) — 근거: 검색 근거(`ddaily.co.kr/page/view/2025120515243468676`, `byline.network/2025/11/19-535/`)
+  - 2026 스마일게이트 인디게임 창작 공모전 IndieGo — 접수 2026-03-10~04-12 — 공모전(퍼블리싱 계약 없는 초기 인디게임 창작팀, 1인 가능) — 국내(온라인 접수) — 주최(퓨처랩) — 모음 사이트: 씽유 `thinkyou.co.kr/contest/61589`(검색 요약 기준, 제목 미확인) — 근거: 검색 근거
+  - 2026 인디게임 프로토타이핑 챌린지 3기 — 날짜 미확인 — 공모(지원 사업인지 공모전인지 미확인) — 미확인 — 주최(퓨처랩) — 모음 사이트: 찾지 못함 — 근거: 퓨처랩 API 응답 `preTitle`(seq 839)
+  - 비버롹스 2026 전시팀 모집 — 모집 2026-05-19~07-27 — 공모(인디게임 전시팀, 출시·계약 여부 무관) — 국내 — 주최(퓨처랩) — 모음 사이트: 찾지 못함(site: 검색 못 함) — 근거: 검색 근거(`byline.network/2026/05/19-635/`)
+- 예정(2026-11 이후):
+  - 비버롹스 2026 — 2026-12-18~20, SETEC 제1·2전시장 — 인디게임 축제 — 국내 — 주최(퓨처랩) — 근거: 검색 근거(`byline.network/2026/05/19-635/`)
+- 메모:
+  - 개발 행사는 거의 퓨처랩(재단)이 인디게임 개발자 대상으로 연다. 연 주기: IndieGo(3~4월 접수), 비버롹스(5~7월 전시팀 모집, 12월 행사), 비버잼(9~10월).
+  - 기간 직전이라 세지 않은 것: 비버잼 2025(모집 2025-09-24~10-13, 행사 10-24~26, 네이버웹툰 협업), 인디게임 프로토타이핑 챌린지 2기(모집 2025-10-01~10-23). 근거: 퓨처랩 API 응답, 검색 근거.
+  - 세지 않은 것: MODAC-THON 2026(06-27~28)·인피니톤 2025 — 기술인재발굴 프로그램 수료자 커뮤니티 해커톤(교육 프로그램, 외부 모집 아님, 검색 근거). 스마일게이트멤버십 인디게임 부문(창작 지원 프로그램, 17기 모집 2025-04~05), 퓨처비 메이커톤(중·고교 교육), FLC 교육자 클럽 월간밋업(교육자 대상), 오렌지플래닛 스타트업 선발, E7WC 2026(e스포츠), 스마일커넥터(서포터즈).
+  - AI센터 행사는 `smilegate.ai` 시간 초과와 검색 한도 소진으로 확인하지 못했다.
+  - 세션 공용 검색 한도(200회)가 소진돼 site: 검색과 후원 검색을 하지 못했다.
+  - 사이트 직접 요청 14회(호스트 4곳: smilegate.com 2, newsroom 6, futurelab.center 5, smilegate.ai 1).
+
+## 묶음 요약
+- 행사 0건: 컬리, 오늘의집. 야놀자는 그룹 보도자료 첫 쪽·블로그 범위에서 0건이다. 넷마블은 개발자 대상 0건이다(장애학생 e페스티벌 공동 주최 1건만).
+- 읽기 불가·사전 공지 목록 없음: 크래프톤 `www.krafton.com`은 CloudFront 403이다. NHN `nan2026.nhn.com`은 DNS가 없다. 넥슨·크래프톤·NC AI는 사전 공지가 보도자료·대학 공지·LinkedIn으로만 보였다. 행사가 실제로 올라오는 읽기 가능한 목록은 업스테이지 `/events`(SSR), 무신사 기술 블로그 RSS, 스마일게이트 퓨처랩 숨은 API다.
+- 모음 사이트: 공모전·해커톤(넥슨·NHN·크래프톤·NC AI·스마일게이트)은 씽유·링커리어·더팀스·슈퍼루키에 일부 보였다. 컨퍼런스·세미나(NDC, MUSINSA PATTERN, 업스테이지 세미나)는 등장을 확인하지 못했다. 업스테이지는 Luma 2건만 확인했다.
+- 분류가 애매한 것: 크래프톤 해커톤 3건은 채용 혜택이 붙는다. 스마일게이트 4건 중 비버롹스 2025(축제)·전시팀 모집·프로토타이핑 챌린지는 행사 종류가 애매하다. 넥슨게임즈 디지털아트 공모전은 개발이 아닌 아트 공모전이다.
+- 세션 공용 WebSearch 한도(200회)가 조사 중 소진됐다. 그래서 `site:` 모음 사이트 검색, 후원 검색, 일부 계열사(NHN Commerce·KCP, devCAT·민트로켓, 넷마블 자회사, NC AI 사이트, 스마일게이트 AI센터) 검색이 미확인으로 남았다.
