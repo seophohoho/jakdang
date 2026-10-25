@@ -19,7 +19,7 @@
 - User-Agent는 정확히 `Mozilla/5.0 (compatible; jakdang-event-bot/0.1; personal developer event notifier)`로 한다. 브라우저 UA로 바꾸지 않는다.
 - 요청은 한 번에 하나만 보낸다. 같은 호스트에는 요청 사이에 1초 이상 둔다. 타임아웃은 10초다. spec에 적힌 목록 주소만 요청한다. 상세 페이지, 로그인, 우회는 하지 않는다.
 - 개발 여부 판정, 키워드 필터, 사이트 간 중복 제거, 한 회차 발송 상한은 만들지 않는다(spec "사용자가 정한 것").
-- 알림 글 형식은 정확히 `[사이트이름] 제목\n링크`다.
+- 알림 글 형식은 정확히 `## 제목\n- 사이트: 사이트이름\n- 링크: 링크`다(Mattermost 마크다운).
 - 사이트 id와 이름: `wevity` 위비티, `dacon` DACON, `allcon` 올콘, `thinkgood` 씽굿, `okky` OKKY, `thinkyou` 씽유, `contestkorea` 콘테스트코리아.
 - 상태 파일은 `data/sent.json`이다. 저장된 키가 없는 사이트는 보내지 않고 기억만 한다(첫 실행, 나중에 추가한 사이트 모두).
 - 실행 시각은 9:00·15:00 KST다. 한국은 서머타임이 없으므로 UTC cron `0 0,6 * * *`로 쓴다.
@@ -182,9 +182,9 @@ import { formatMessage, postMessage } from '../src/mattermost.js';
 afterEach(() => vi.unstubAllGlobals());
 
 describe('mattermost', () => {
-  it('formatMessage puts the site name in brackets, then the title, then the link on the next line', () => {
+  it('formatMessage writes the title as h2 and the site and link as list items', () => {
     const item = { id: '111802', title: '현대자동차그룹 차량용 앱 개발 공모전', url: 'https://www.wevity.com/?c=find&s=1&gbn=view&ix=111802' };
-    expect(formatMessage('위비티', item)).toBe('[위비티] 현대자동차그룹 차량용 앱 개발 공모전\nhttps://www.wevity.com/?c=find&s=1&gbn=view&ix=111802');
+    expect(formatMessage('위비티', item)).toBe('## 현대자동차그룹 차량용 앱 개발 공모전\n- 사이트: 위비티\n- 링크: https://www.wevity.com/?c=find&s=1&gbn=view&ix=111802');
   });
 
   it('postMessage sends the text as JSON to the webhook', async () => {
@@ -216,6 +216,7 @@ const item = (id: string): Item => ({ id, title: `t${id}`, url: `https://x.test/
 const listing = (id: string, ids: string[]): Source => ({ id, name: id.toUpperCase(), read: async () => ids.map(item) });
 const broken = (id: string, message: string): Source => ({ id, name: id, read: async () => { throw new Error(message); } });
 const noPause = async () => {};
+const msg = (name: string, id: string) => `## t${id}\n- 사이트: ${name}\n- 링크: https://x.test/${id}`;
 
 function recorder(failOnCall?: number) {
   const texts: string[] = [];
@@ -239,7 +240,7 @@ describe('run', () => {
   it('posts only unseen items in list order', async () => {
     const r = recorder();
     const result = await run({ sources: [listing('a', ['3', '1', '4'])], state: { a: ['1'] }, post: r.post, pause: noPause });
-    expect(r.texts).toEqual(['[A] t3\nhttps://x.test/3', '[A] t4\nhttps://x.test/4']);
+    expect(r.texts).toEqual([msg('A', '3'), msg('A', '4')]);
     expect(result.state.a).toEqual(['3', '1', '4']);
     expect(result.sent).toBe(2);
   });
@@ -247,13 +248,13 @@ describe('run', () => {
   it('posts an item once when the list repeats its id', async () => {
     const r = recorder();
     await run({ sources: [listing('a', ['5', '5'])], state: { a: [] }, post: r.post, pause: noPause });
-    expect(r.texts).toEqual(['[A] t5\nhttps://x.test/5']);
+    expect(r.texts).toEqual([msg('A', '5')]);
   });
 
   it('keeps posting other sources when one source throws', async () => {
     const r = recorder();
     const result = await run({ sources: [broken('bad', 'timeout'), listing('ok', ['2'])], state: { bad: ['x'], ok: ['1'] }, post: r.post, pause: noPause });
-    expect(r.texts).toEqual(['[OK] t2\nhttps://x.test/2']);
+    expect(r.texts).toEqual([msg('OK', '2')]);
     expect(result.failures).toEqual([{ sourceId: 'bad', error: 'timeout' }]);
     expect(result.state.bad).toEqual(['x']);
   });
@@ -262,18 +263,18 @@ describe('run', () => {
     const first = recorder(2);
     const a = listing('a', ['1', '2', '3']);
     const result = await run({ sources: [a], state: { a: [] }, post: first.post, pause: noPause });
-    expect(first.texts).toEqual(['[A] t1\nhttps://x.test/1']);
+    expect(first.texts).toEqual([msg('A', '1')]);
     expect(result.failures).toHaveLength(1);
     expect(result.state.a).toEqual(['1']);
     const second = recorder();
     await run({ sources: [a], state: result.state, post: second.post, pause: noPause });
-    expect(second.texts).toEqual(['[A] t2\nhttps://x.test/2', '[A] t3\nhttps://x.test/3']);
+    expect(second.texts).toEqual([msg('A', '2'), msg('A', '3')]);
   });
 
   it('seeds a newly added source while posting for known ones', async () => {
     const r = recorder();
     const result = await run({ sources: [listing('a', ['2']), listing('b', ['9'])], state: { a: ['1'] }, post: r.post, pause: noPause });
-    expect(r.texts).toEqual(['[A] t2\nhttps://x.test/2']);
+    expect(r.texts).toEqual([msg('A', '2')]);
     expect(result.state.b).toEqual(['9']);
   });
 
