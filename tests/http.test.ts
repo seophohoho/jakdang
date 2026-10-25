@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { completeChain } from '../src/chain.js';
-import { USER_AGENT, fetchText } from '../src/http.js';
+import { fetchText } from '../src/http.js';
+import { USER_AGENT } from '../src/user-agent.js';
 
 vi.mock('../src/chain.js');
 

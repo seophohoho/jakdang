@@ -2,8 +2,6 @@ import { completeChain } from './chain.js';
 import { messageOf } from './run.js';
 import { USER_AGENT } from './user-agent.js';
 
-export { USER_AGENT };
-
 const TIMEOUT_MS = 10_000;
 const LEAF_SIGNATURE_ERROR = 'UNABLE_TO_VERIFY_LEAF_SIGNATURE';
 const chainAttemptedHosts = new Set<string>();

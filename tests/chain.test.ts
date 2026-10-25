@@ -12,6 +12,13 @@ const leaf = fixture('allcon-leaf.pem');
 const intermediate = fixture('sectigo-dv-r36.pem');
 const roots = tls.rootCertificates.map((pem) => new X509Certificate(pem));
 
+function withFlippedSignatureBit(cert: X509Certificate): X509Certificate {
+  const der = Buffer.from(cert.raw);
+  const last = der.length - 1;
+  der.writeUInt8(der.readUInt8(last) ^ 1, last);
+  return new X509Certificate(der);
+}
+
 describe('aiaIssuerUrl', () => {
   it('extracts the CA Issuers url from a real leaf', () => {
     expect(aiaIssuerUrl(leaf.infoAccess)).toBe('http://crt.sectigo.com/SectigoPublicServerAuthenticationCADVR36.crt');
@@ -37,5 +44,13 @@ describe('isTrustedIntermediate', () => {
 
   it('rejects an intermediate with no trusted root', () => {
     expect(isTrustedIntermediate(leaf, intermediate, [])).toBe(false);
+  });
+
+  it('rejects a leaf whose signature was altered', () => {
+    expect(isTrustedIntermediate(withFlippedSignatureBit(leaf), intermediate, roots)).toBe(false);
+  });
+
+  it('rejects an intermediate whose signature was altered', () => {
+    expect(isTrustedIntermediate(leaf, withFlippedSignatureBit(intermediate), roots)).toBe(false);
   });
 });
