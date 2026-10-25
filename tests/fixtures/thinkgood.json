@@ -1,0 +1,51 @@
+{
+  "msg": "데이타를 정상적으로 호출하였습니다",
+  "totalcnt": 2024,
+  "jsonStr": null,
+  "pageSize": 10,
+  "recordsPerPage": 10,
+  "listJsonData": [
+    {
+      "program_nm": "2026 청도 바이브코딩 해커톤 with 해커그라운드",
+      "contest_pk": 112230
+    },
+    {
+      "program_nm": "과학기술정보통신부 장관상🏆「2026년 대한민국 SW기술대상 및 IT아키텍처 대상」",
+      "contest_pk": 112206
+    },
+    {
+      "program_nm": "2026 AI 플레이 콘텐츠 제작 공모전",
+      "contest_pk": 112189
+    },
+    {
+      "program_nm": "2026 충북글로벌게임센터 AI 게임 개발 공모전",
+      "contest_pk": 112093
+    },
+    {
+      "program_nm": "2026 K-AWARDS DIGITAL EXCELLENCE AWARDS",
+      "contest_pk": 112013
+    },
+    {
+      "program_nm": "서울AI디지털배움터 청년 AI 해커톤",
+      "contest_pk": 111972
+    },
+    {
+      "program_nm": "2026 조달청 AI 게임·콘텐츠 공모전",
+      "contest_pk": 111956
+    },
+    {
+      "program_nm": "2026 TS 보안 허점을 찾아라",
+      "contest_pk": 111917
+    },
+    {
+      "program_nm": "화이트햇 2026 국방 사이버보안 콘테스트",
+      "contest_pk": 111915
+    },
+    {
+      "program_nm": "2026 로보틱스 작품공모전",
+      "contest_pk": 111888
+    }
+  ],
+  "status": "1",
+  "currentPageNo": 1
+}
