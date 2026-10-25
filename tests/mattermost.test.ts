@@ -9,6 +9,16 @@ describe('mattermost', () => {
     expect(formatMessage('위비티', item)).toBe('## 현대자동차그룹 차량용 앱 개발 공모전\n- 사이트: 위비티\n- 링크: https://www.wevity.com/?c=find&s=1&gbn=view&ix=111802');
   });
 
+  it('formatMessage escapes markdown characters in the title and neutralizes mentions', () => {
+    const item = { id: '1', title: '[x](https://evil.test) @channel *b*', url: 'https://x.test/1' };
+    expect(formatMessage('위비티', item)).toBe('## \\[x\\]\\(https://evil.test\\) @\u200bchannel \\*b\\*\n- 사이트: 위비티\n- 링크: https://x.test/1');
+  });
+
+  it('formatMessage escapes every markdown-significant character in the title', () => {
+    const item = { id: '1', title: '\\ ` * _ ~ [ ] ( ) ! < > |', url: 'https://x.test/1' };
+    expect(formatMessage('위비티', item).split('\n')[0]).toBe('## \\\\ \\` \\* \\_ \\~ \\[ \\] \\( \\) \\! \\< \\> \\|');
+  });
+
   it('postMessage sends the text as JSON to the webhook', async () => {
     const fetchMock = vi.fn(async (_url: string, _init: RequestInit) => new Response('ok'));
     vi.stubGlobal('fetch', fetchMock);

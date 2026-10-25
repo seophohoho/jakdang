@@ -1,7 +1,11 @@
 import type { Item } from './types.js';
 
+function escapeTitle(title: string): string {
+  return title.replace(/[\\`*_~[\]()!<>|]/g, '\\$&').replaceAll('@', '@\u200b');
+}
+
 export function formatMessage(sourceName: string, item: Item): string {
-  return `## ${item.title}\n- 사이트: ${sourceName}\n- 링크: ${item.url}`;
+  return `## ${escapeTitle(item.title)}\n- 사이트: ${sourceName}\n- 링크: ${item.url}`;
 }
 
 export async function postMessage(webhookUrl: string, text: string): Promise<void> {
