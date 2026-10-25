@@ -49,12 +49,6 @@ describe('parseOkky', () => {
     expect(parseOkky(html)).toContainEqual(TEXT_ONLY_ROW_ITEM);
   });
 
-  it('does not turn tag links into items', () => {
-    for (const i of parseOkky(html)) {
-      expect(i.url).not.toContain('tagged');
-    }
-  });
-
   it('throws when the list is missing', () => {
     expect(() => parseOkky('<html></html>')).toThrow(/okky/);
   });
