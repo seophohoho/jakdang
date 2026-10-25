@@ -6,8 +6,8 @@
     "node": "24.x"
   },
   "scripts": {
-    "start": "NODE_EXTRA_CA_CERTS=certs/sectigo-public-server-authentication-ca-dv-r36.pem tsx src/main.ts",
-    "check": "NODE_EXTRA_CA_CERTS=certs/sectigo-public-server-authentication-ca-dv-r36.pem tsx src/check.ts",
+    "start": "tsx src/main.ts",
+    "check": "tsx src/check.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
