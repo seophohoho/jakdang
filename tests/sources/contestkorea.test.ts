@@ -23,8 +23,7 @@ describe('parseContestkorea', () => {
     expect(items.length).toBeGreaterThanOrEqual(5);
     for (const i of items) {
       expect(i.id).toMatch(/^\d{12}$/);
-      expect(i.url).toMatch(/^https:\/\/www\.contestkorea\.com\/sub\/view\.php\?/);
-      expect(i.url).toContain(`str_no=${i.id}`);
+      expect(i.url).toBe(`https://www.contestkorea.com/sub/view.php?int_gbn=1&Txt_bcode=030310001&str_no=${i.id}`);
       expect(i.title).not.toBe('');
       expect(i.title).toBe(i.title.trim());
     }
@@ -44,6 +43,14 @@ describe('parseContestkorea', () => {
 
   it('keeps angle brackets in a title', () => {
     expect(parseContestkorea(html)).toContainEqual(ANGLE_BRACKET_ITEM);
+  });
+
+  it('builds the link from the id even when the href points elsewhere', () => {
+    const row = (href: string) => `<div class="list_style_2"><ul><li><div class="title"><a href="${href}"><span class="txt">제목</span></a></div></li></ul></div>`;
+    const items = parseContestkorea(row('https://evil.test/view.php?str_no=202610200005&x=1'));
+    expect(items).toEqual([
+      { id: '202610200005', title: '제목', url: 'https://www.contestkorea.com/sub/view.php?int_gbn=1&Txt_bcode=030310001&str_no=202610200005' },
+    ]);
   });
 
   it('throws when the list is missing', () => {

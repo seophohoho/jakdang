@@ -4,6 +4,7 @@ import type { Item, Source } from '../types.js';
 import { cleanText, requireItems } from './shared.js';
 
 const LIST_URL = 'https://www.contestkorea.com/sub/list.php?int_gbn=1&Txt_bcode=030310001';
+const VIEW_URL = 'https://www.contestkorea.com/sub/view.php?int_gbn=1&Txt_bcode=030310001&str_no=';
 
 export function parseContestkorea(html: string): Item[] {
   const $ = cheerio.load(html);
@@ -15,7 +16,7 @@ export function parseContestkorea(html: string): Item[] {
     if (id === undefined) return;
     const title = cleanText(link.find('span.txt').text());
     if (title === '') return;
-    items.push({ id, title, url: new URL(href, LIST_URL).href });
+    items.push({ id, title, url: `${VIEW_URL}${id}` });
   });
   return requireItems('contestkorea', items);
 }
