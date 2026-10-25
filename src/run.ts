@@ -12,8 +12,9 @@ export type RunDeps = {
   pause?: () => Promise<void>;
 };
 
-function messageOf(error: unknown): string {
-  return error instanceof Error ? error.message : String(error);
+export function messageOf(error: unknown): string {
+  if (!(error instanceof Error)) return String(error);
+  return error.cause instanceof Error ? `${error.message}: ${error.cause.message}` : error.message;
 }
 
 function firstOfEachId(items: Item[]): Item[] {

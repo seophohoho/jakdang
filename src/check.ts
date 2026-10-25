@@ -1,3 +1,4 @@
+import { messageOf } from './run.js';
 import { sources } from './sources/index.js';
 import { cleanText } from './sources/shared.js';
 
@@ -9,8 +10,7 @@ for (const source of sources) {
     console.log(`${source.id}\t${items.length}건\t${items[0]?.title ?? ''}`);
   } catch (error) {
     failed = true;
-    const message = error instanceof Error ? error.message : String(error);
-    console.log(`${source.id}\t실패\t${cleanText(message)}`);
+    console.log(`${source.id}\t실패\t${cleanText(messageOf(error))}`);
   }
 }
 

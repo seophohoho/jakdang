@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { run } from '../src/run.js';
+import { messageOf, run } from '../src/run.js';
 import type { Item, Source } from '../src/types.js';
 
 const item = (id: string): Item => ({ id, title: `t${id}`, url: `https://x.test/${id}` });
@@ -72,5 +72,33 @@ describe('run', () => {
     const state = { a: ['1'] };
     await run({ sources: [listing('a', ['2'])], state, post: recorder().post, pause: noPause });
     expect(state).toEqual({ a: ['1'] });
+  });
+
+  it('records the cause of a failed fetch in the failure message', async () => {
+    const failing: Source = {
+      id: 'allcon',
+      name: 'allcon',
+      read: async () => {
+        throw new Error('fetch failed', { cause: new Error('UNABLE_TO_VERIFY_LEAF_SIGNATURE') });
+      },
+    };
+    const result = await run({ sources: [failing], state: { allcon: ['1'] }, post: recorder().post, pause: noPause });
+    expect(result.failures).toEqual([{ sourceId: 'allcon', error: 'fetch failed: UNABLE_TO_VERIFY_LEAF_SIGNATURE' }]);
+  });
+});
+
+describe('messageOf', () => {
+  it('appends the cause message when the cause is an Error', () => {
+    const error = new Error('fetch failed', { cause: new Error('UNABLE_TO_VERIFY_LEAF_SIGNATURE') });
+    expect(messageOf(error)).toBe('fetch failed: UNABLE_TO_VERIFY_LEAF_SIGNATURE');
+  });
+
+  it('returns the message alone when there is no Error cause', () => {
+    expect(messageOf(new Error('timeout'))).toBe('timeout');
+    expect(messageOf(new Error('x', { cause: 'plain' }))).toBe('x');
+  });
+
+  it('stringifies a non-Error value', () => {
+    expect(messageOf('boom')).toBe('boom');
   });
 });
