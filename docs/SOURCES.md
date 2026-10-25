@@ -6,11 +6,11 @@
 
 ## 운영 소스 요약
 
-| id | 이름 | 구분 | 수집 방식 | 키워드 필터 | 평소 실행 / bootstrap 범위 |
-| --- | --- | --- | --- | --- | --- |
-| `wevity-it` | 위비티 웹/모바일/IT 공모전 | 플랫폼(공모전 모음) | HTML + cheerio | 사용 | 2페이지 / 5페이지 |
-| `dacon` | DACON 대회 | 플랫폼(대회 목록) | HTML + cheerio | 미사용 | 1페이지 / 1페이지 |
-| `oss-notice` | 오픈소스 포털(NIPA) 공지사항 | 공식 기관 | HTML + cheerio | 사용 | 1페이지(20건) / 3페이지(60건) |
+| id           | 이름                         | 구분                | 수집 방식      | 키워드 필터 | 평소 실행 / bootstrap 범위    |
+| ------------ | ---------------------------- | ------------------- | -------------- | ----------- | ----------------------------- |
+| `wevity-it`  | 위비티 웹/모바일/IT 공모전   | 플랫폼(공모전 모음) | HTML + cheerio | 사용        | 2페이지 / 5페이지             |
+| `dacon`      | DACON 대회                   | 플랫폼(대회 목록)   | HTML + cheerio | 미사용      | 1페이지 / 1페이지             |
+| `oss-notice` | 오픈소스 포털(NIPA) 공지사항 | 공식 기관           | HTML + cheerio | 사용        | 1페이지(20건) / 3페이지(60건) |
 
 RSS를 실제로 제공하면서 수집이 허용된 후보는 찾지 못했다. 그래서 운영 소스는 모두 HTML이다. RSS 파서는 합성 fixture(`tests/fixtures/rss/synthetic-feed.xml`)로만 검증한다.
 
@@ -96,9 +96,13 @@ RSS를 실제로 제공하면서 수집이 허용된 후보는 찾지 못했다.
 - 페이지네이션: 없음. `?page=2`도 같은 목록을 돌려줬다. 평소·bootstrap 모두 1페이지이고, 목록에는 15건 안팎이 보인다.
 - 조건부 요청: 응답에 `ETag`가 있다. 내용이 같으면 304로 끝난다.
 - robots.txt (`https://dacon.io/robots.txt`): `/myprofile`, `*.php`, `/edu/online/secret` 등만 막는다. `/competitions`는 허용이다. 요청 간격 1초.
-- 이용약관 (`https://dacon.io/more/notice/99`, "이용약관 전문 (2023.03.22)")
-  - "회원은 서비스를 이용하여 얻은 정보를 회사의 사전동의 없이 복사, 복제, 번역, 출판, 방송 등의 방법으로 사용하거나 이를 타인에게 제공할 수 없다."
-  - 대상은 회원이다. 이 봇은 로그인하지 않는다. 다만 위 "이용 조건 공통 주의"를 따른다.
+- 이용약관 (`https://dacon.io/more/notice/137`, "데이콘 주식회사 이용약관(26.08.21)", 시행일자 2026년 8월 21일. 2026-10-23 확인)
+  - 제21조 7항: "“회원”은 서비스를 이용하여 얻은 정보를 “회사”의 사전동의 없이 복사, 복제, 번역, 출판, 방송 등의 방법으로 사용하거나 이를 타인에게 제공할 수 없다."
+  - 제21조 8항: "“회원”은 본 서비스를 건전한 대회 참여, 학습의 목적, “기업회원”의 채용 의뢰에 대한 지원 이외의 목적으로 사용해서는 안 되며"
+  - 제1조: "어떤 방식이든 본 서비스를 사용한다는 것은 “회원”이 본 약관의 전부에 동의한다는 것을 의미하며"
+  - 제2조 1항은 적용 사이트로 dacon.io와 daker.ai를 함께 적는다.
+  - 조항의 주어는 회원이다. 이 봇은 로그인하지 않는다. 다만 제1조는 "어떤 방식이든" 사용하면 동의한 것으로 본다. 위 "이용 조건 공통 주의"를 따른다.
+  - 이전 판: `https://dacon.io/more/notice/99`, "이용약관 전문 (2023.03.22)". 7항과 같은 문구가 있었다.
 - 행사 유형: AI·데이터 경진대회, 해커톤(LG Aimers 등), 연습 대회. 모두 개발 관련이라 키워드를 쓰지 않는다.
 - 수집 누락 가능 범위
   - 목록에 보이는 공식 대회만 본다. 목록에서 빠진 과거 대회는 보지 않는다.
@@ -148,19 +152,19 @@ RSS를 실제로 제공하면서 수집이 허용된 후보는 찾지 못했다.
 
 ## 제외한 후보
 
-| 후보 | 확인한 것 | 제외 사유 |
-| --- | --- | --- |
+| 후보                                                                            | 확인한 것                                                                  | 제외 사유                                                                                                                                 |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | Dev-Event (`raw.githubusercontent.com/brave-people/Dev-Event/master/README.md`) | 월별 행사 100건. 세미나 56·대회 23·모임 19. 컨퍼런스·밋업을 가장 많이 다룸 | LICENSE가 독점 라이선스다. 허락 없는 "일부 복제·재배포"(2(a))와 "데이터셋·편집물 생성"(2(d))을 금지한다. 사용자 결정(2026-10-22)으로 제외 |
-| 이벤터스 (`event-us.kr/search?category=IT/프로그래밍`) | HTML에 광고 배너 8건만 있음 | 검색 결과를 브라우저 스크립트로 그린다. robots.txt가 `/rss/event`를 금지한다. IT 분류에 HR·기후테크 행사가 섞인다 |
-| 온오프믹스 (`onoffmix.com`) | robots.txt | `User-agent: *` `Disallow: /`. 검색엔진·지정 봇만 허용한다 |
-| Festa (`festa.io`) | 첫 화면 | "Coming Soon" 페이지만 나온다. 서비스가 운영되지 않는다 |
-| Meetup AWSKRUG RSS (`meetup.com/awskrug/events/rss/`) | 실제 RSS 7건 | robots.txt가 `*/events/rss/*`를 금지한다 |
-| ticketa (`ticketa.co`) | 첫 화면 | 행사 목록을 클라이언트에서 그린다. HTML에 목록이 없다 |
-| 올콘 (`all-con.co.kr`) | RSS 링크 `as_rss.php` | RSS가 PHP Fatal error를 돌려준다. 목록은 AJAX(`/page/ajax.contest_list.php`)로만 온다 |
-| 씽굿 (`thinkcontest.com`) | 공모전 목록 페이지 | 목록을 스크립트로 불러온다 |
-| 콘테스트코리아 (`contestkorea.com`) | IT·소프트웨어·게임 분류 페이지 | 본문 목록 영역을 HTML에서 찾지 못했다. 구조 확인 미완 |
-| 프로그래머스 챌린지 (`school.programmers.co.kr/competitions`) | 페이지 | 목록을 클라이언트에서 그린다 |
-| GDG 커뮤니티 (`gdg.community.dev/gdg-seoul/`) | 챕터 페이지 | 예정 행사를 스크립트로 그린다. robots.txt가 `/api/`를 금지한다 |
+| 이벤터스 (`event-us.kr/search?category=IT/프로그래밍`)                          | HTML에 광고 배너 8건만 있음                                                | 검색 결과를 브라우저 스크립트로 그린다. robots.txt가 `/rss/event`를 금지한다. IT 분류에 HR·기후테크 행사가 섞인다                         |
+| 온오프믹스 (`onoffmix.com`)                                                     | robots.txt                                                                 | `User-agent: *` `Disallow: /`. 검색엔진·지정 봇만 허용한다                                                                                |
+| Festa (`festa.io`)                                                              | 첫 화면                                                                    | "Coming Soon" 페이지만 나온다. 서비스가 운영되지 않는다                                                                                   |
+| Meetup AWSKRUG RSS (`meetup.com/awskrug/events/rss/`)                           | 실제 RSS 7건                                                               | robots.txt가 `*/events/rss/*`를 금지한다                                                                                                  |
+| ticketa (`ticketa.co`)                                                          | 첫 화면                                                                    | 행사 목록을 클라이언트에서 그린다. HTML에 목록이 없다                                                                                     |
+| 올콘 (`all-con.co.kr`)                                                          | RSS 링크 `as_rss.php`                                                      | RSS가 PHP Fatal error를 돌려준다. 목록은 AJAX(`/page/ajax.contest_list.php`)로만 온다                                                     |
+| 씽굿 (`thinkcontest.com`)                                                       | 공모전 목록 페이지                                                         | 목록을 스크립트로 불러온다                                                                                                                |
+| 콘테스트코리아 (`contestkorea.com`)                                             | IT·소프트웨어·게임 분류 페이지                                             | 본문 목록 영역을 HTML에서 찾지 못했다. 구조 확인 미완                                                                                     |
+| 프로그래머스 챌린지 (`school.programmers.co.kr/competitions`)                   | 페이지                                                                     | 목록을 클라이언트에서 그린다                                                                                                              |
+| GDG 커뮤니티 (`gdg.community.dev/gdg-seoul/`)                                   | 챕터 페이지                                                                | 예정 행사를 스크립트로 그린다. robots.txt가 `/api/`를 금지한다                                                                            |
 
 ## 소스 고장 시 확인 순서
 
