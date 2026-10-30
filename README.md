@@ -24,7 +24,7 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    A["GitHub Actions<br/>매일 9:00 · 15:00"] --> B["사이트 7곳<br/>목록 읽기"]
+    A["GitHub Actions<br/>매일 9:17 · 15:17"] --> B["사이트 7곳<br/>목록 읽기"]
     B --> C["새 글만 고르기"]
     C --> D["Mattermost<br/>웹훅으로 발송"]
     D --> E["채널"]
