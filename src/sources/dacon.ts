@@ -1,7 +1,9 @@
 import * as cheerio from 'cheerio';
-import { fetchText } from '../http.js';
+import { fetchRenderedHtml } from '../browser.js';
 import type { Item, Source } from '../types.js';
 import { cleanText, requireItems } from './shared.js';
+
+const LIST_ANCHOR = 'div.official-comp div.comp > a';
 
 function linkOf(href: string): { id: string; url: string } | undefined {
   const official = /\/competitions\/official\/(\d+)\//.exec(href)?.[1];
@@ -18,7 +20,7 @@ function linkOf(href: string): { id: string; url: string } | undefined {
 export function parseDacon(html: string): Item[] {
   const $ = cheerio.load(html);
   const items: Item[] = [];
-  $('div.official-comp div.comp > a').each((_, a) => {
+  $(LIST_ANCHOR).each((_, a) => {
     const link = $(a);
     const target = linkOf(link.attr('href') ?? '');
     if (target === undefined) return;
@@ -32,5 +34,5 @@ export function parseDacon(html: string): Item[] {
 export const dacon: Source = {
   id: 'dacon',
   name: 'DACON',
-  read: async () => parseDacon(await fetchText('https://dacon.io/competitions')),
+  read: async () => parseDacon(await fetchRenderedHtml('https://dacon.io/competitions', LIST_ANCHOR)),
 };
